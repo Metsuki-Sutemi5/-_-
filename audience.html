@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Аудиториям — Секреты Поднебесной</title>
+    <link rel="stylesheet" href="style-audience.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#services">Главные разделы</a></li>
+            <li><a href="audience.html" class="active">Аудиториям</a></li>
+            <li><a href="practice-index.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content animate-up">
+                <div class="hero-badge"><i class="fas fa-users"></i> Кому мы помогаем</div>
+                <h1>Секреты Поднебесной <span class="hero-highlight">для каждого</span></h1>
+                <p class="hero-desc">Туристы, студенты, предприниматели — у каждого свои вызовы в Китае. Мы собрали проверенные решения, готовые фразы и пошаговые алгоритмы именно для вашей ситуации.</p>
+            </div>
+            <div class="hero-image animate-up delay-1">
+                <img src="./imgs/dragon.png" alt="Китайский дракон">
+            </div>
+        </div>
+    </section>
+
+    <!-- ========= ТУРИСТЫ ========= -->
+    <section class="audience-section" id="tourists">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-icon">🧳✈️</div>
+                <h2 class="section-title">Туристам без гида</h2>
+                <p class="section-subtitle">Путешествуйте уверенно: от прилёта до отлёта</p>
+            </div>
+            <div class="audience-detail-grid">
+                <div class="detail-text">
+                    <h3>С какими трудностями сталкиваются?</h3>
+                    <ul class="problem-list">
+                        <li><i class="fas fa-language"></i> Языковой барьер даже в банальных ситуациях (заказ еды, транспорт)</li>
+                        <li><i class="fas fa-mobile-alt"></i> Как подключить мобильный интернет и пользоваться WeChat/Alipay</li>
+                        <li><i class="fas fa-subway"></i> Сложная система метро и покупка билетов</li>
+                        <li><i class="fas fa-hand-holding-usd"></i> Торг на рынках и непонимание местных цен</li>
+                        <li><i class="fas fa-praying-hands"></i> Культурные табу: что нельзя делать в храмах, как давать деньги и т.д.</li>
+                    </ul>
+                </div>
+                <div class="detail-offers">
+                    <h3>Что найдёте в «Секретах»</h3>
+                    <div class="offer-cards">
+                        <div class="offer-item">
+                            <i class="fas fa-chalkboard-user"></i>
+                            <strong>Кейсы</strong>
+                            <span>«Как я потерял кошелёк в метро Пекина и что делал», «Ошибки при заказе еды»</span>
+                            <a href="tourism-cases.html" class="small-link">→ смотреть кейсы для туристов</a>
+                        </div>
+                        <div class="offer-item">
+                            <i class="fas fa-list-check"></i>
+                            <strong>Практика</strong>
+                            <span>Пошаговые инструкции: купить SIM, вызвать Didi, оплатить парк аттракционов</span>
+                            <a href="practice-index.html" class="small-link">→ все инструкции</a>
+                        </div>
+                        <div class="offer-item">
+                            <i class="fas fa-gamepad"></i>
+                            <strong>Интерактив</strong>
+                            <span>Тренажёр «Симулятор ресторана» — выбери блюдо и не потеряй лицо</span>
+                            <a href="interactive.html" class="small-link">→ попробовать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-links">
+                <h4>🔥 Популярные материалы для туристов</h4>
+                <div class="links-row">
+                    <a href="food-cases.html">Заказ еды без знания иероглифов</a>
+                    <a href="housing-cases.html">Как не остаться на улице: 5 шагов к безопасной аренде в Китае</a>
+                    <a href="taxi-cases.html">Didi, метро и никаких переплат</a>
+                    <a href="etiquette-cases.html">Потеря паспорта и кража: инструкция по выживанию за 30 минут</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========= СТУДЕНТЫ ========= -->
+    <section class="audience-section alt-bg" id="students">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-icon">📚🎓</div>
+                <h2 class="section-title">Студентам и стажёрам</h2>
+                <p class="section-subtitle">Учёба, жильё, виза — без стресса</p>
+            </div>
+            <div class="audience-detail-grid reverse">
+                <div class="detail-text">
+                    <h3>Типичные проблемы студентов</h3>
+                    <ul class="problem-list">
+                        <li><i class="fas fa-passport"></i> Оформление студенческой визы X1/X2 и регистрация в полиции</li>
+                        <li><i class="fas fa-home"></i> Поиск жилья: как не попасть на мошенников и не переплатить</li>
+                        <li><i class="fas fa-university"></i> Выбор вуза: рейтинги, стипендии, языковые курсы</li>
+                        <li><i class="fas fa-book-open"></i> Подготовка к HSK (международный экзамен по китайскому)</li>
+                        <li><i class="fas fa-hand-holding-heart"></i> Культурный шок и как найти друзей среди местных</li>
+                    </ul>
+                </div>
+                <div class="detail-offers">
+                    <h3>Что найдёте в «Секретах»</h3>
+                    <div class="offer-cards">
+                        <div class="offer-item">
+                            <i class="fas fa-chalkboard-user"></i>
+                            <strong>Кейсы</strong>
+                            <span>«Отчисление из‑за просроченной визы», «Как я искал комнату через Ziroom»</span>
+                            <a href="students-cases.html" class="small-link">→ кейсы студентов</a>
+                        </div>
+                        <div class="offer-item">
+                            <i class="fas fa-list-check"></i>
+                            <strong>Практика</strong>
+                            <span>Пошаговый гайд по поступлению в топ-5 вузов Китая, образец мотивационного письма</span>
+                            <a href="practice-index.html" class="small-link">→ гайд по поступлению</a>
+                        </div>
+                        <div class="offer-item">
+                            <i class="fas fa-gamepad"></i>
+                            <strong>Интерактив</strong>
+                            <span>Тест «Готов ли ты к переезду?» + сценарий разговора с арендодателем</span>
+                            <a href="interactive.html" class="small-link">→ пройти тест</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-links">
+                <h4>📘 Образовательные секреты</h4>
+                <div class="links-row">
+                    <a href="student-hsk-failure-cases.html">Провалил HSK 4 — что делать?</a>
+                    <a href="student-studies-cases.html">Как найти друзей, не обидеть одногруппников, понять иероглифы в кампусе</a>
+                    <a href="student-job-cases.html">Легальная подработка и стажировка</a>
+                    <a href="student-housing-cases.html">Общага vs аренда</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========= БИЗНЕС И РАБОТА ========= -->
+    <section class="audience-section" id="business">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-icon">💼📈</div>
+                <h2 class="section-title">Бизнес, переговоры, работа</h2>
+                <p class="section-subtitle">Продвижение, этикет, деловые подарки</p>
+            </div>
+            <div class="audience-detail-grid">
+                <div class="detail-text">
+                    <h3>Сложности предпринимателей и экспатов</h3>
+                    <ul class="problem-list">
+                        <li><i class="fas fa-gift"></i> Какие подарки дарить (и какие категорически нельзя)</li>
+                        <li><i class="fas fa-handshake"></i> Деловой этикет: обмен визитками, приветствия, переговорный процесс</li>
+                        <li><i class="fas fa-chart-line"></i> Как продвигать бизнес через WeChat (Official Account, моменты)</li>
+                        <li><i class="fas fa-briefcase"></i> Получение рабочей визы (Z) и разрешения на работу</li>
+                        <li><i class="fas fa-comments"></i> Нюансы переписки и звонков с китайскими партнёрами</li>
+                    </ul>
+                </div>
+                <div class="detail-offers">
+                    <h3>Что найдёте в «Секретах»</h3>
+                    <div class="offer-cards">
+                        <div class="offer-item">
+                            <i class="fas fa-chalkboard-user"></i>
+                            <strong>Кейсы</strong>
+                            <span>«Провал переговоров из‑за неправильного цвета конверта», «Как я открыл ИП в Шэньчжэне»</span>
+                            <a href="business-cases.html" class="small-link">→ бизнес-кейсы</a>
+                        </div>
+                        <div class="offer-item">
+                            <i class="fas fa-list-check"></i>
+                            <strong>Практика</strong>
+                            <span>Инструкция: как зарегистрировать компанию в Китае (WFOE), шаблон договора</span>
+                            <a href="practice-index.html" class="small-link">→ гайд по регистрации</a>
+                        </div>
+                        <div class="offer-item">
+                            <i class="fas fa-gamepad"></i>
+                            <strong>Интерактив</strong>
+                            <span>Симулятор делового обеда — выбери правильные тосты и подарки</span>
+                            <a href="interactive.html" class="small-link">→ попробовать симулятор</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-links">
+                <h4>🏷️ Для профессионалов</h4>
+                <div class="links-row">
+                    <a href="business-etiquette-cases.html">Что уважают китайские партнёры, а что может испортить сделку</a>
+                    <a href="business-negotiations-cases.html">Как подписать договор, не потеряв лицо</a>
+                    <a href="business-gifts-cases.html">Подарил начальнику часы на юбилей — больше сделок не было</a>
+                    <a href="business-registration-cases.html">Не подал отчётность по налогам — заблокировали счёт и оштрафовали</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок «Часто ищут» (быстрые ссылки) -->
+    <section class="popular-links" style="background: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">⭐ Часто ищут на сайте</h2>
+            <div class="popular-grid">
+                <a href="students-admission-cases.html" class="popular-card">
+                    <i class="fas fa-mobile-alt"></i> Как выбрать вуз иностранцу
+                </a>
+                <a href="taxi-cases.html" class="popular-card">
+                    <i class="fas fa-taxi"></i> Вызов Didi для русских: пошагово
+                </a>
+                <a href="payment-communication-cases.html" class="popular-card">
+                    <i class="fas fa-university"></i> Настройка WeChat Pay по шагам
+                </a>
+                <a href="business-gifts-cases.html" class="popular-card">
+                    <i class="fas fa-gift"></i> Что дарят китайцам на Новый год
+                </a>
+                <a href="business-etiquette-cases.html" class="popular-card">
+                    <i class="fas fa-handshake"></i> 7 правил делового этикета
+                </a>
+                <a href="food-cases.html" class="popular-card">
+                    <i class="fas fa-utensils"></i> Как заказать еду без свинины и острого
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ специфические для аудиторий (три аккордеона) -->
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">❓ Вопросы от наших читателей</h2>
+            <div class="faq-wrapper" style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Туристам: можно ли расплачиваться российской картой? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Сейчас в Китае российские карты не работают. Нужно открыть счёт в местном банке (или использовать UnionPay от других банков) либо везти наличные и менять в обменниках. Мы подготовили инструкцию «Как перевести деньги из РФ в Китай в 2025» – смотрите в разделе Практика для туристов.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Студентам: какой минимальный бюджет на месяц в Пекине? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Студенческое общежитие от 1000 юаней, питание в столовой – 800-1200 юаней, транспорт – ~200 юаней. Итого минимум 2500-3000 юаней (ок. 30-35 тыс. руб.) без учёта развлечений. В нашем кейсе «Реальный бюджет студента в Шанхае» – детальная таблица расходов.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Бизнес: нужно ли учить китайский для переговоров? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Если вы работаете через переводчика – можно, но базовые фразы и знание культуры дадут огромное преимущество. В разделе «Интерактив» есть курс «Деловой китайский за 2 недели» (диалоги, фразы для тостов, комплиментов).</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="privacy.html">Политика данных</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — гид, созданный энтузиастами. Вся информация обновляется.
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Мобильное меню
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // FAQ аккордеон
+    function toggleFaq(element) {
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== element) item.classList.remove('active');
+        });
+        element.classList.toggle('active');
+    }
+
+    // Анимация при скролле
+    const animateElements = document.querySelectorAll('.animate-up, .audience-section, .popular-grid');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate-up, .audience-section, .popular-grid').forEach(el => {
+        if (!el.classList.contains('animate-up')) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            observer.observe(el);
+        } else {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            observer.observe(el);
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О проекте — Секреты Поднебесной</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fefaf8; color: #2c2b28; }
+        .navbar { background: #a5260c; padding: 1rem 0; color: white; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: white; text-decoration: none; }
+        .logo span { font-weight: 400; font-size: 0.9rem; opacity: 0.9; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; width: 100%; flex-direction: column; text-align: center; padding: 1rem 0; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+        }
+        .hero { background: linear-gradient(135deg, #fffaf7, #fff0ea); padding: 60px 0; text-align: center; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 16px; }
+        .hero p { font-size: 1.2rem; color: #5e6a6f; max-width: 700px; margin: 0 auto; }
+        .content { padding: 60px 0; background: white; }
+        .content h2 { font-size: 1.8rem; margin: 2rem 0 1rem; color: #a5260c; }
+        .content p { margin-bottom: 1rem; line-height: 1.6; color: #2c2b28; }
+        .content ul { margin: 1rem 0 1rem 2rem; }
+        .content li { margin: 0.5rem 0; }
+        footer { background: #1e1e1e; color: #ccc; padding: 2rem 0; margin-top: 2rem; }
+        .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .footer-links a { color: #ccc; text-decoration: none; margin-right: 1.5rem; }
+        .copyright { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#services">Главные разделы</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="tourism-cases.html">Кейсы туристам</a></li>
+            <li><a href="students-cases.html">Кейсы студентам</a></li>
+            <li><a href="business-cases.html">Кейсы бизнесу</a></li>
+            <li><a href="translator.html">Переводчик</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>О проекте</h1>
+        <p>«Секреты Поднебесной» — гид, созданный энтузиастами для тех, кто хочет уверенно жить, учиться и путешествовать в Китае.</p>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container">
+        <h2>Кто мы и зачем это всё</h2>
+        <p>Проект родился из личного опыта: мы сами сталкивались с бюрократией, культурным шоком, языковым барьером и отсутствием понятных инструкций на русском. «Секреты Поднебесной» — это место, где мы собрали проверенные решения для реальных проблем.</p>
+        
+        <h2>Что вы найдёте на сайте</h2>
+        <ul>
+            <li><strong>Кейсы</strong> — реальные истории туристов, студентов и бизнесменов с разбором ошибок и готовыми фразами.</li>
+            <li><strong>Практика</strong> — пошаговые инструкции (SIM-карта, аренда, WeChat Pay, регистрация в полиции).</li>
+            <li><strong>Интерактив</strong> — тесты и сценарии, чтобы отточить навыки до поездки.</li>
+            <li><strong>Переводчик с пиньинем</strong> — быстрый перевод с русского на китайский и обратно с произношением.</li>
+        </ul>
+
+        <h2>Почему нам можно доверять</h2>
+        <p>Мы не придумываем советы на коленке. Каждый кейс основан на реальных ситуациях, подтверждённых документами или многократной проверкой. Мы обновляем информацию под новые законы (например, безвизовый режим 2026 года). Все фразы и переводы проверены носителями языка.</p>
+
+        <h2>Наша миссия</h2>
+        <p>Сделать адаптацию в Китае простой и предсказуемой. Мы хотим, чтобы вы тратили силы на интересные открытия, а не на решение проблем с визами, жильём или едой.</p>
+        
+        <p>Проект открыт для сотрудничества и обратной связи. Если у вас есть своя история или вы хотите помочь с переводом — пишите нам на почту (см. раздел «Контакты»).</p>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="privacy.html">Политика данных</a>
+            </div>
+        </div>
+        <div class="copyright">© 2025 «Секреты Поднебесной» — гид по Китаю для русских.</div>
+    </div>
+</footer>
+
+<script>
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (mobileBtn) mobileBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+</script>
+</body>
+</html>

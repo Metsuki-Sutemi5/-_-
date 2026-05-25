@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сценарий: Как не заблудиться в метро Китая</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e1e2f; line-height: 1.5; }
+        :root {
+            --china-red: #C41E3A;
+            --china-red-dark: #A01830;
+            --gold: #D4AF37;
+            --light-bg: #fef8f5;
+            --gray-text: #4a5568;
+            --border-light: #f0e2dc;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .navbar {
+            padding: 20px 0;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(4px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--china-red);
+            text-decoration: none;
+        }
+        .logo span { font-weight: 400; color: #2d2d3a; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #2d2d3a; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--china-red); }
+        .mobile-menu-btn { display: none; font-size: 1.6rem; background: none; border: none; cursor: pointer; }
+
+        .hero {
+            background: linear-gradient(135deg, #fffaf7 0%, #fff0ea 100%);
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 12px; }
+        .hero p { font-size: 1.1rem; color: var(--gray-text); max-width: 700px; margin: 0 auto; }
+
+        .level-selector {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+        .level-btn {
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f0f0f0;
+            color: #333;
+            transition: all 0.2s;
+        }
+        .level-btn.active {
+            background: var(--china-red);
+            color: white;
+        }
+        .level-btn[data-level="beginner"]:hover { background: #2e7d32; color: white; }
+        .level-btn[data-level="intermediate"]:hover { background: #f57c00; color: white; }
+        .level-btn[data-level="advanced"]:hover { background: #c62828; color: white; }
+
+        .simulator { padding: 20px 0 80px; }
+        .step-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .step-header {
+            background: #fef3ef;
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--china-red);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-desc {
+            padding: 20px 24px;
+            background: #f9f7f5;
+            font-size: 1rem;
+            border-bottom: 1px dashed var(--border-light);
+        }
+        .dialogue {
+            padding: 20px 24px;
+        }
+        .message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        .message.info { justify-content: flex-start; }
+        .message.player { justify-content: flex-end; }
+        .bubble {
+            max-width: 85%;
+            padding: 12px 18px;
+            border-radius: 24px;
+            font-size: 1rem;
+        }
+        .info .bubble {
+            background: #e3f2fd;
+            border-bottom-left-radius: 4px;
+        }
+        .player .bubble {
+            background: var(--china-red);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .options {
+            margin: 16px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option-btn {
+            background: white;
+            border: 1px solid var(--border-light);
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .option-btn:hover {
+            background: #fff5f0;
+            border-color: var(--china-red);
+        }
+        .feedback {
+            margin: 0 24px 24px;
+            padding: 14px 18px;
+            border-radius: 20px;
+            background: #fff9e6;
+            border-left: 4px solid var(--gold);
+            font-size: 0.9rem;
+        }
+        .feedback.good { background: #e6f7e6; border-left-color: #2b7a3e; }
+        .feedback.bad { background: #ffe6e6; border-left-color: #c62828; }
+        .score-panel {
+            background: white;
+            border-radius: 60px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .restart-btn {
+            background: var(--china-red);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .result-box {
+            text-align: center;
+            padding: 30px;
+            background: var(--light-bg);
+            border-radius: 40px;
+        }
+        footer {
+            background: #1e1e2f;
+            color: #ccc;
+            padding: 48px 0 24px;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 1.8rem; }
+            .option-btn { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="practice.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="container">
+        <h1>🚇 Сценарий: Как не заблудиться в метро Китая</h1>
+        <p>Вы в Пекине. Нужно доехать от центра до достопримечательности. Выбирайте правильные действия и набирайте очки.</p>
+    </div>
+    <div class="level-selector" id="levelSelector">
+        <button class="level-btn" data-level="beginner">🟢 Новичок (подсказки)</button>
+        <button class="level-btn" data-level="intermediate">🟡 Средний (меньше подсказок)</button>
+        <button class="level-btn" data-level="advanced">🔴 Продвинутый (только иероглифы)</button>
+    </div>
+</div>
+
+<div class="simulator">
+    <div class="container">
+        <div id="simulatorApp"></div>
+        <div id="restartArea" style="text-align: center;"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+        <div class="copyright"><i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — навигация в метро.</div>
+    </div>
+</footer>
+
+<script>
+    // Базовые сцены с исходными вариантами (порядок фиксирован, но мы его перемешаем при старте)
+    const originalScenes = [
+        {
+            id: 0,
+            description: "Вы входите в метро. Нужно купить билет или проездной. Какие действия правильные?",
+            hints: {
+                beginner: "У большинства станций есть автоматы с английским языком. Также можно купить жетон в кассе, показав название станции иероглифами.",
+                intermediate: "Автоматы с английским, касса — покажите название станции.",
+                advanced: "automatic ticket machine or cashier"
+            },
+            options: [
+                { text: "Подойти к автомату, выбрать английский интерфейс, выбрать станцию назначения, опустить монеты или купюру.", points: 10, feedback: "Отлично! Вы быстро и правильно купили билет." },
+                { text: "Попытаться объяснить кассиру на пальцах, но без китайских названий.", points: 3, feedback: "Можно, но лучше подготовить иероглифы или воспользоваться автоматом." },
+                { text: "Просто прыгнуть через турникет (шутка, но так делать нельзя)", points: -10, feedback: "Это нарушение, будут проблемы с полицией." },
+                { text: "Скачать приложение Metro China и купить QR-билет через Alipay/WeChat", points: 10, feedback: "Современный способ! Многие станции принимают QR-коды." }
+            ],
+            nextScene: 1
+        },
+        {
+            id: 1,
+            description: "Вы на платформе. Нужно понять, в какую сторону ехать. Что делаете?",
+            hints: {
+                beginner: "Смотрите на указатели над платформой: конечные станции направлений написаны по-английски.",
+                intermediate: "Ищите конечную станцию на схеме.",
+                advanced: "Direction signs."
+            },
+            options: [
+                { text: "Смотрю на указатели: ищу название своей станции или конечную точку маршрута.", points: 10, feedback: "Правильно! Указатели чёткие." },
+                { text: "Спрашиваю у прохожих на русском \"куда ехать?\"", points: -5, feedback: "Вас не поймут, лучше показывать название станции на телефоне." },
+                { text: "Сажусь в любой вагон, потом разберусь.", points: -8, feedback: "Рискуете уехать в противоположную сторону." },
+                { text: "Использую приложение-навигатор (например, Baidu Maps) с проложенным маршрутом.", points: 10, feedback: "Отлично, технологичный подход." }
+            ],
+            nextScene: 2
+        },
+        {
+            id: 2,
+            description: "Вы сели в поезд. Нужно отследить, когда выходить. Ваши действия?",
+            hints: {
+                beginner: "Смотрите на карту над дверями: горящие лампочки показывают пройденные станции.",
+                intermediate: "Схема над дверями + объявления на китайском и английском.",
+                advanced: "Electronic map above doors."
+            },
+            options: [
+                { text: "Считаю остановки по карте и слушаю объявления (на английском тоже дублируют).", points: 10, feedback: "Верно, объявления понятны." },
+                { text: "Сажусь и засыпаю, надеясь на автопилот.", points: -10, feedback: "Проснётесь на конечной, потеряете время." },
+                { text: "Открываю приложение и отслеживаю GPS.", points: 7, feedback: "Работает, но в туннеле GPS может теряться." }
+            ],
+            nextScene: 3
+        },
+        {
+            id: 3,
+            description: "Вы вышли на станции пересадки. Нужно найти переход на другую линию. Что делать?",
+            hints: {
+                beginner: "Ищите синие указатели с иероглифом «换乘» и пиктограммой перехода.",
+                intermediate: "Blue signs with '换乘' and arrow.",
+                advanced: "Follow 'huànchéng' signs."
+            },
+            options: [
+                { text: "Иду по указателям «换乘» (пересадка) — они есть везде.", points: 10, feedback: "Правильно! Указатели интуитивные." },
+                { text: "Выхожу на улицу и ищу вход на другую линию.", points: -5, feedback: "Так можно, но потеряете время и деньги (выход-вход платный). Лучше подземный переход." },
+                { text: "Спрашиваю у дежурного, показываю название линии иероглифами.", points: 8, feedback: "Тоже вариант, но указатели быстрее." }
+            ],
+            nextScene: 4
+        },
+        {
+            id: 4,
+            description: "Вы почти у цели — нужно выйти из метро на улицу. Какой выход выбрать к достопримечательности (например, Запретный город)?",
+            hints: {
+                beginner: "Над выходами написаны буквы A, B, C, D и схема района. Ищите нужный ориентир.",
+                intermediate: "Check exits map (A, B, C, D) near the gates.",
+                advanced: "Exit map near the gates."
+            },
+            options: [
+                { text: "Изучаю схему выходов рядом с турникетами, ищу название достопримечательности.", points: 10, feedback: "Верно, там всё нарисовано." },
+                { text: "Выхожу на любой выход, потом на улице смотрю на карту.", points: 3, feedback: "Можно, но можно было выбрать ближайший сразу." },
+                { text: "Следую за толпой туристов.", points: 4, feedback: "Сработает, но не всегда." }
+            ],
+            nextScene: null
+        }
+    ];
+
+    let currentLevel = localStorage.getItem('metroLevel') || 'beginner';
+    let currentSceneIndex = 0;
+    let totalPoints = 0;
+    let history = [];
+    let waiting = false;
+    let finished = false;
+    // Здесь будем хранить перемешанные опции для текущей сцены
+    let shuffledOptionsForCurrentScene = [];
+
+    // Функция перемешивания массива (сохраняя объекты)
+    function shuffleArray(arr) {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+    }
+
+    function renderSimulator() {
+        const container = document.getElementById('simulatorApp');
+        if (finished) {
+            const maxPoints = 50; // 10×5
+            const percent = Math.round((totalPoints / maxPoints) * 100);
+            let levelLabel = '';
+            if (percent >= 80) levelLabel = '🏆 Эксперт метро!';
+            else if (percent >= 60) levelLabel = '🎓 Уверенный пассажир.';
+            else if (percent >= 40) levelLabel = '👍 Турист-новичок, есть чему поучиться.';
+            else levelLabel = '⚠️ Вы заблудились. Пройдите сценарий ещё раз.';
+            container.innerHTML = `
+                <div class="result-box">
+                    <div class="score-panel" style="margin: 0 auto 20px;">Ваши очки: ${totalPoints} / ${maxPoints} (${percent}%)</div>
+                    <p style="font-size: 1.2rem; margin-bottom: 20px;">${levelLabel}</p>
+                    <button class="restart-btn" id="restartScenario">🚇 Пройти заново</button>
+                </div>
+            `;
+            document.getElementById('restartArea').innerHTML = '';
+            document.getElementById('restartScenario').addEventListener('click', () => resetScenario());
+            return;
+        }
+
+        const scene = originalScenes[currentSceneIndex];
+        // Перемешиваем опции для текущей сцены, если ещё не перемешаны (при каждом заходе заново)
+        shuffledOptionsForCurrentScene = shuffleArray(scene.options);
+
+        // История
+        let historyHtml = '<div class="step-card" style="margin-bottom: 20px;"><div class="step-header"><i class="fas fa-history"></i> Ваши действия</div><div class="dialogue">';
+        if (history.length === 0) historyHtml += '<p style="color: gray;">Пока ничего не выбрано.</p>';
+        else {
+            for (let h of history) {
+                historyHtml += `<div class="message player"><div class="bubble">🧑 ${h}</div></div>`;
+            }
+        }
+        historyHtml += '</div></div>';
+
+        // Подсказка в зависимости от уровня
+        let hintHtml = '';
+        if (currentLevel === 'beginner') {
+            hintHtml = `<div class="message info"><div class="bubble"><i class="fas fa-lightbulb"></i> Подсказка: ${scene.hints.beginner}</div></div>`;
+        } else if (currentLevel === 'intermediate') {
+            hintHtml = `<div class="message info"><div class="bubble"><i class="fas fa-info-circle"></i> ${scene.hints.intermediate}</div></div>`;
+        } else {
+            hintHtml = `<div class="message info"><div class="bubble">📌 ${scene.hints.advanced}</div></div>`;
+        }
+
+        // Основной блок
+        let sceneHtml = `
+            <div class="step-card">
+                <div class="step-header"><i class="fas fa-subway"></i> Шаг ${currentSceneIndex+1} из ${originalScenes.length}</div>
+                <div class="step-desc">${scene.description}</div>
+                <div class="dialogue">
+                    ${hintHtml}
+                </div>
+                <div class="options" id="optionsArea"></div>
+                <div id="feedbackArea"></div>
+            </div>
+        `;
+        container.innerHTML = historyHtml + sceneHtml;
+
+        const optionsArea = document.getElementById('optionsArea');
+        shuffledOptionsForCurrentScene.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = `<i class="fas fa-hand-point-right"></i> ${opt.text}`;
+            btn.addEventListener('click', () => {
+                if (waiting) return;
+                waiting = true;
+                totalPoints += opt.points;
+                history.push(opt.text);
+                const feedbackDiv = document.getElementById('feedbackArea');
+                const fbClass = opt.points >= 8 ? 'good' : (opt.points < 0 ? 'bad' : '');
+                feedbackDiv.innerHTML = `<div class="feedback ${fbClass}"><strong>${opt.points >= 0 ? '✓' : '✗'}</strong> ${opt.feedback}</div>`;
+                document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+                setTimeout(() => {
+                    if (scene.nextScene !== null) {
+                        currentSceneIndex = scene.nextScene;
+                        waiting = false;
+                        renderSimulator();
+                    } else {
+                        finished = true;
+                        renderSimulator();
+                    }
+                }, 1500);
+            });
+            optionsArea.appendChild(btn);
+        });
+    }
+
+    function resetScenario() {
+        currentSceneIndex = 0;
+        totalPoints = 0;
+        history = [];
+        waiting = false;
+        finished = false;
+        renderSimulator();
+    }
+
+    function setLevel(level) {
+        currentLevel = level;
+        localStorage.setItem('metroLevel', level);
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            if (btn.dataset.level === level) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        resetScenario();
+    }
+
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.addEventListener('click', () => setLevel(btn.dataset.level));
+        if (btn.dataset.level === currentLevel) btn.classList.add('active');
+    });
+
+    renderSimulator();
+
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

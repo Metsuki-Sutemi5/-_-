@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Переводчик с пиньинем и озвучкой — русско-китайский</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.19.0/dist/index.min.js"></script>
+    <style>
+        /* ВСЕ СТИЛИ ТЕ ЖЕ, что и в предыдущей версии — они полностью сохранены.
+           Я добавлю только небольшие правки для кнопки озвучки, чтобы не ломать вёрстку. */
+        body {
+            background-color: #fefaf8;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: #2c2b28;
+        }
+        .navbar {
+            background: #a5260c;
+            padding: 1rem 0;
+            color: white;
+        }
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+        .logo span {
+            font-weight: 400;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem 0;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        .translator-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.08);
+            margin: 3rem auto;
+            max-width: 1000px;
+        }
+        .translator-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .translator-header h2 {
+            margin: 0 0 0.5rem 0;
+            color: #2c2b28;
+        }
+        .translator-header p {
+            color: #5e6a6f;
+            margin: 0;
+        }
+        .language-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .lang-pair {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f0ebe6;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            font-weight: 600;
+        }
+        .lang-pair.active {
+            background: #a5260c;
+            color: white;
+            border-color: #a5260c;
+        }
+        .lang-pair:hover:not(.active) {
+            background: #e5dfd9;
+        }
+        .text-areas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .text-areas {
+                grid-template-columns: 1fr;
+            }
+        }
+        .text-box {
+            display: flex;
+            flex-direction: column;
+        }
+        .text-box label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c2b28;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .voice-btn {
+            background: #f0ebe6;
+            border: none;
+            background: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            transition: all 0.2s;
+            color: #a5260c;
+        }
+        .voice-btn:hover {
+            background: #f0ebe6;
+            transform: scale(1.05);
+        }
+        .voice-btn.recording {
+            color: #d32f2f;
+            background: #ffebee;
+            animation: pulse 1.2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(211, 47, 47, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid #ddd9d4;
+            border-radius: 16px;
+            font-family: 'Inter', 'Noto Serif SC', sans-serif;
+            resize: vertical;
+            min-height: 100px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #a5260c;
+        }
+        .translate-btn {
+            background: #a5260c;
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .translate-btn:hover:not(:disabled) {
+            background: #7e1d09;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(165, 38, 12, 0.3);
+        }
+        .translate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .result-container {
+            background: #f9f6f2;
+            border-radius: 20px;
+            padding: 2rem;
+            border-left: 6px solid #a5260c;
+            margin-bottom: 1.5rem;
+        }
+        .result-container h3 {
+            margin: 0 0 1rem 0;
+            color: #2c2b28;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+        .translation-block {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5dfd9;
+        }
+        .translation-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .translation-label {
+            font-size: 0.85rem;
+            color: #5e6a6f;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .chinese-text {
+            font-size: 1.8rem;
+            color: #2c2b28;
+            margin-bottom: 0.5rem;
+            font-family: 'Noto Serif SC', serif;
+            line-height: 1.4;
+        }
+        .pinyin-text {
+            font-size: 1.3rem;
+            color: #a5260c;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+            font-family: 'Inter', sans-serif;
+        }
+        .russian-text, .english-text {
+            font-size: 1.1rem;
+            color: #2c2b28;
+            line-height: 1.5;
+        }
+        .speaker-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #a5260c;
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+            transition: all 0.2s;
+        }
+        .speaker-btn:hover {
+            background: #e5dfd9;
+            transform: scale(1.05);
+        }
+        .status-message {
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .status-info {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        .status-success {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        .status-error {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+        .status-warning {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        .examples-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #f0ebe6;
+        }
+        .examples-section h3 {
+            margin-bottom: 1rem;
+            color: #2c2b28;
+        }
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .example-card {
+            background: #fff;
+            border: 2px solid #f0ebe6;
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .example-card:hover {
+            border-color: #a5260c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .example-card .zh {
+            font-size: 1.3rem;
+            color: #2c2b28;
+            font-family: 'Noto Serif SC', serif;
+            margin-bottom: 0.3rem;
+        }
+        .example-card .pinyin {
+            font-size: 0.95rem;
+            color: #a5260c;
+            font-style: italic;
+            margin-bottom: 0.3rem;
+        }
+        .example-card .ru {
+            font-size: 0.9rem;
+            color: #5e6a6f;
+        }
+        footer {
+            background: #1e1e1e;
+            color: #ccc;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-right: 1.5rem;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .copy-btn {
+            background: #f0ebe6;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            background: #e5dfd9;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#services">Главные разделы</a></li>
+            <li><a href="index.html#audience">Аудиториям</a></li>
+            <li><a href="index.html#practice-example">Практика</a></li>
+            <li><a href="index.html#quiz">Интерактив</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="translator.html" style="font-weight: 800;">Переводчик</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="container">
+        <div class="translator-card">
+            <div class="translator-header">
+                <h2>🌐 Переводчик с пиньинем и озвучкой</h2>
+                <p>Переводит предложения • Показывает иероглифы + пиньинь • Озвучивание китайского текста</p>
+            </div>
+
+            <div class="language-selector">
+                <div class="lang-pair active" data-from="ru" data-to="zh">
+                    <span>🇷🇺 Русский</span>
+                    <i class="fas fa-arrow-right" style="font-size: 0.8rem;"></i>
+                    <span>中文 Китайский</span>
+                </div>
+                <div class="lang-pair" data-from="zh" data-to="ru">
+                    <span>中文 Китайский</span>
+                    <i class="fas fa-arrow-right" style="font-size: 0.8rem;"></i>
+                    <span>🇷🇺 Русский</span>
+                </div>
+                <div class="lang-pair" data-from="en" data-to="zh">
+                    <span>🇬 English</span>
+                    <i class="fas fa-arrow-right" style="font-size: 0.8rem;"></i>
+                    <span>中文 Китайский</span>
+                </div>
+            </div>
+
+            <div class="text-areas">
+                <div class="text-box">
+                    <div class="input-header">
+                        <label><i class="fas fa-keyboard"></i> Введите текст:</label>
+                        <button id="voiceInputBtn" class="voice-btn" title="Диктовать текст (только русский или английский)">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                    <textarea id="sourceText" placeholder="Например: Где ближайшая станция метро?"></textarea>
+                </div>
+                <div class="text-box">
+                    <label><i class="fas fa-language"></i> Перевод:</label>
+                    <textarea id="targetText" placeholder="Здесь появится перевод..." readonly style="background: #f9f6f2;"></textarea>
+                </div>
+            </div>
+
+            <button id="translateBtn" class="translate-btn">
+                <i class="fas fa-language"></i> Перевести
+            </button>
+
+            <div class="result-container" id="resultContainer" style="display: none;">
+                <h3><i class="fas fa-book-open"></i> Результат перевода:</h3>
+                
+                <div class="translation-block" id="chineseBlock">
+                    <div class="translation-label">
+                        <span>🇨🇳 Китайский (иероглифы):</span>
+                        <button id="speakChineseBtn" class="speaker-btn" title="Озвучить на китайском"><i class="fas fa-volume-up"></i></button>
+                    </div>
+                    <div class="chinese-text" id="chineseText"></div>
+                </div>
+
+                <div class="translation-block" id="pinyinBlock">
+                    <div class="translation-label">📖 Пиньинь (произношение):</div>
+                    <div class="pinyin-text" id="pinyinText"></div>
+                </div>
+
+                <div class="translation-block" id="russianBlock">
+                    <div class="translation-label">🇷🇺 Русский перевод:</div>
+                    <div class="russian-text" id="russianText"></div>
+                </div>
+
+                <button class="copy-btn" onclick="copyTranslation()">
+                    <i class="fas fa-copy"></i> Копировать всё
+                </button>
+            </div>
+
+            <div id="statusMessage" class="status-message status-info" style="display: none;">
+                <i class="fas fa-info-circle"></i> Готов к работе
+            </div>
+
+            <div class="examples-section">
+                <h3>📚 Примеры фраз для перевода (нажмите чтобы использовать):</h3>
+                <div class="example-grid" id="exampleGrid"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="privacy.html">Политика данных</a>
+            </div>
+        </div>
+        <div class="copyright" style="text-align: center; margin-top: 1.5rem;">
+            <i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — гид, созданный энтузиастами.
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ========== ЛОКАЛЬНЫЙ СЛОВАРЬ (из предыдущей версии) ==========
+    const ruToZhDictionary = {
+        "привет": "你好",
+        "здравствуйте": "您好",
+        "пока": "再见",
+        "до свидания": "再见",
+        "спасибо": "谢谢",
+        "большое спасибо": "非常感谢",
+        "пожалуйста": "不客气",
+        "извините": "对不起",
+        "простите": "对不起",
+        "как дела": "你好吗",
+        "как дела?": "你好吗",
+        "хорошо": "好",
+        "плохо": "不好",
+        "да": "是",
+        "нет": "不",
+        "я тебя люблю": "我爱你",
+        "красивый": "漂亮",
+        "вкусно": "好吃",
+        "сколько стоит": "多少钱",
+        "где туалет": "厕所在哪里",
+        "помогите": "救命",
+        "доктор": "医生",
+        "полиция": "警察",
+        "вода": "水",
+        "еда": "食物",
+        "гостиница": "酒店",
+        "аэропорт": "机场",
+        "метро": "地铁",
+        "автобус": "公共汽车",
+        "поезд": "火车",
+        "дайте": "给我",
+        "проверьте": "检查一下",
+        "счёт": "账单"
+    };
+    const zhToRuDictionary = {};
+    for (const [ru, zh] of Object.entries(ruToZhDictionary)) {
+        zhToRuDictionary[zh] = ru;
+    }
+    zhToRuDictionary["你好"] = "привет";
+    zhToRuDictionary["您好"] = "здравствуйте";
+    zhToRuDictionary["再见"] = "до свидания";
+    zhToRuDictionary["谢谢"] = "спасибо";
+    zhToRuDictionary["不客气"] = "пожалуйста";
+    zhToRuDictionary["对不起"] = "извините";
+    zhToRuDictionary["是"] = "да";
+    zhToRuDictionary["不"] = "нет";
+    zhToRuDictionary["水"] = "вода";
+    zhToRuDictionary["食物"] = "еда";
+
+    // === МОБИЛЬНОЕ МЕНЮ ===
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinksEl = document.getElementById('navLinks');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', () => navLinksEl.classList.toggle('active'));
+    }
+
+    const examplePhrases = [
+        { ru: 'Где ближайшая станция метро?', zh: '最近的地铁站在哪里？', en: 'Where is the nearest metro station?' },
+        { ru: 'Сколько стоит этот сувенир?', zh: '这个纪念品多少钱？', en: 'How much is this souvenir?' },
+        { ru: 'Я вегетарианец, у вас есть подходящие блюда?', zh: '我是素食者，你们有合适的菜吗？', en: "I'm vegetarian, do you have suitable dishes?" },
+        { ru: 'Можно оплатить картой?', zh: '可以刷卡吗？', en: 'Can I pay by card?' },
+        { ru: 'Как пройти к музею?', zh: '去博物馆怎么走？', en: 'How do I get to the museum?' },
+        { ru: 'У меня аллергия на орехи', zh: '我对坚果过敏', en: "I'm allergic to nuts" },
+        { ru: 'Спасибо за помощь!', zh: '谢谢你的帮助！', en: 'Thank you for your help!' },
+        { ru: 'Извините, я не понимаю', zh: '对不起，我不明白', en: "Sorry, I don't understand" }
+    ];
+
+    let currentFrom = 'ru';
+    let currentTo = 'zh';
+    let recognition = null;
+    let isRecording = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderExamples();
+        setupEventListeners();
+        initVoiceRecognition();
+        initSpeechSynthesis(); // подготовка озвучки
+        showStatus('💡 Введите фразу. Результат покажет иероглифы + пиньинь. Нажмите на динамик для озвучки.', 'info');
+    });
+
+    // === ПОДГОТОВКА СИНТЕЗА РЕЧИ ===
+    let speechUtterance = null;
+    let chineseVoice = null;
+
+    function initSpeechSynthesis() {
+        if (!window.speechSynthesis) {
+            console.warn("SpeechSynthesis не поддерживается");
+            const speakBtn = document.getElementById('speakChineseBtn');
+            if (speakBtn) speakBtn.style.display = 'none';
+            return;
+        }
+        // Попробуем найти китайский голос заранее (но голоса загружаются асинхронно)
+        const setVoice = () => {
+            const voices = window.speechSynthesis.getVoices();
+            chineseVoice = voices.find(voice => voice.lang === 'zh-CN' || voice.lang.startsWith('zh'));
+            if (!chineseVoice) {
+                // fallback: первый доступный голос
+                chineseVoice = voices[0];
+            }
+        };
+        window.speechSynthesis.onvoiceschanged = setVoice;
+        setVoice();
+        
+        const speakBtn = document.getElementById('speakChineseBtn');
+        if (speakBtn) {
+            speakBtn.addEventListener('click', () => {
+                const chineseText = document.getElementById('chineseText').textContent;
+                if (!chineseText || chineseText === '—') {
+                    showStatus('Нет китайского текста для озвучки', 'warning');
+                    return;
+                }
+                speakChinese(chineseText);
+            });
+        }
+    }
+
+    function speakChinese(text) {
+        if (!window.speechSynthesis) {
+            showStatus('Ваш браузер не поддерживает озвучку', 'error');
+            return;
+        }
+        // Останавливаем текущую речь, если она играет
+        window.speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.9;  // немного медленнее для лучшего восприятия
+        utterance.pitch = 1.0;
+        
+        if (chineseVoice) {
+            utterance.voice = chineseVoice;
+        }
+        
+        utterance.onstart = () => showStatus('🔊 Озвучивание...', 'info');
+        utterance.onend = () => showStatus('✓ Озвучивание завершено', 'success');
+        utterance.onerror = (e) => showStatus('❌ Ошибка озвучки', 'error');
+        
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // === ОСТАЛЬНЫЕ ФУНКЦИИ (без изменений, кроме добавления вызова displayResult с обновлением) ===
+    function initVoiceRecognition() {
+        if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+            const voiceBtn = document.getElementById('voiceInputBtn');
+            voiceBtn.style.display = 'none';
+            showStatus('❌ Ваш браузер не поддерживает голосовой ввод', 'error');
+            return;
+        }
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        recognition.onstart = () => {
+            isRecording = true;
+            const voiceBtn = document.getElementById('voiceInputBtn');
+            voiceBtn.classList.add('recording');
+            voiceBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+            voiceBtn.title = 'Остановить запись';
+            showStatus('🎤 Говорите...', 'info');
+        };
+        recognition.onend = () => {
+            isRecording = false;
+            const voiceBtn = document.getElementById('voiceInputBtn');
+            voiceBtn.classList.remove('recording');
+            voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+            voiceBtn.title = 'Диктовать текст';
+        };
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('sourceText').value = transcript;
+            showStatus(`✅ Распознано: "${transcript}"`, 'success');
+            performTranslation();
+        };
+        recognition.onerror = (event) => {
+            let msg = 'Ошибка распознавания';
+            if (event.error === 'not-allowed') msg = '❌ Нет разрешения на использование микрофона';
+            else if (event.error === 'no-speech') msg = '⚠️ Речь не обнаружена. Попробуйте ещё раз.';
+            else if (event.error === 'audio-capture') msg = '❌ Микрофон не найден';
+            showStatus(msg, 'error');
+            if (isRecording) recognition.stop();
+        };
+    }
+
+    function toggleVoiceInput() {
+        if (!recognition) {
+            showStatus('❌ Голосовой ввод не поддерживается', 'error');
+            return;
+        }
+        let lang = '';
+        if (currentFrom === 'ru') lang = 'ru-RU';
+        else if (currentFrom === 'en') lang = 'en-US';
+        else {
+            showStatus('⚠️ Голосовой ввод доступен только при источнике Русский или Английский', 'warning');
+            return;
+        }
+        if (isRecording) {
+            recognition.stop();
+            return;
+        }
+        recognition.lang = lang;
+        recognition.start();
+    }
+
+    function renderExamples() {
+        const grid = document.getElementById('exampleGrid');
+        grid.innerHTML = '';
+        examplePhrases.forEach(example => {
+            const card = document.createElement('div');
+            card.className = 'example-card';
+            card.innerHTML = `
+                <div class="zh">${example.zh}</div>
+                <div class="pinyin">${convertToPinyin(example.zh)}</div>
+                <div class="ru">${example.ru}</div>
+            `;
+            card.addEventListener('click', () => {
+                if (currentFrom === 'ru') document.getElementById('sourceText').value = example.ru;
+                else if (currentFrom === 'zh') document.getElementById('sourceText').value = example.zh;
+                else document.getElementById('sourceText').value = example.en;
+                performTranslation();
+            });
+            grid.appendChild(card);
+        });
+    }
+
+    function setupEventListeners() {
+        document.querySelectorAll('.lang-pair').forEach(pair => {
+            pair.addEventListener('click', () => {
+                document.querySelectorAll('.lang-pair').forEach(p => p.classList.remove('active'));
+                pair.classList.add('active');
+                currentFrom = pair.dataset.from;
+                currentTo = pair.dataset.to;
+                showStatus(`Перевод: ${getLangName(currentFrom)} → ${getLangName(currentTo)}`, 'info');
+                document.getElementById('resultContainer').style.display = 'none';
+                document.getElementById('targetText').value = '';
+            });
+        });
+        document.getElementById('translateBtn').addEventListener('click', performTranslation);
+        document.getElementById('voiceInputBtn').addEventListener('click', toggleVoiceInput);
+        document.getElementById('sourceText').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') performTranslation();
+        });
+    }
+
+    async function performTranslation() {
+        const sourceTextRaw = document.getElementById('sourceText').value.trim();
+        const btn = document.getElementById('translateBtn');
+        const resultContainer = document.getElementById('resultContainer');
+        if (!sourceTextRaw) {
+            showStatus('⚠️ Введите текст для перевода', 'warning');
+            return;
+        }
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loading"></span> Переводим...';
+        resultContainer.style.display = 'none';
+        try {
+            let chineseText = '';
+            let russianTranslation = '';
+            let targetOutput = '';
+            if (currentFrom === 'ru' && currentTo === 'zh') {
+                const lowerText = sourceTextRaw.toLowerCase();
+                if (ruToZhDictionary[lowerText]) {
+                    chineseText = ruToZhDictionary[lowerText];
+                    russianTranslation = sourceTextRaw;
+                    targetOutput = chineseText;
+                    showStatus('✅ Переведено из локального словаря', 'success');
+                } else {
+                    showStatus('🌐 Используем онлайн-переводчик...', 'info');
+                    chineseText = await translateToChinese(sourceTextRaw, 'ru');
+                    russianTranslation = sourceTextRaw;
+                    targetOutput = chineseText;
+                    showStatus('🌐 Перевод получен из сети', 'success');
+                }
+            } else if (currentFrom === 'zh' && currentTo === 'ru') {
+                if (zhToRuDictionary[sourceTextRaw]) {
+                    russianTranslation = zhToRuDictionary[sourceTextRaw];
+                    chineseText = sourceTextRaw;
+                    targetOutput = russianTranslation;
+                    showStatus('✅ Переведено из локального словаря', 'success');
+                } else {
+                    showStatus('🌐 Используем онлайн-переводчик...', 'info');
+                    russianTranslation = await translateFromChinese(sourceTextRaw, 'ru');
+                    chineseText = sourceTextRaw;
+                    targetOutput = russianTranslation;
+                    showStatus('🌐 Перевод получен из сети', 'success');
+                }
+            } else if (currentFrom === 'en' && currentTo === 'zh') {
+                showStatus('🌐 Перевод с английского на китайский (онлайн)...', 'info');
+                chineseText = await translateToChinese(sourceTextRaw, 'en');
+                russianTranslation = sourceTextRaw;
+                targetOutput = chineseText;
+            } else {
+                chineseText = await translateToChinese(sourceTextRaw, currentFrom);
+                russianTranslation = sourceTextRaw;
+                targetOutput = chineseText;
+            }
+            const pinyin = convertToPinyin(chineseText);
+            displayResult(chineseText, pinyin, russianTranslation);
+            document.getElementById('targetText').value = targetOutput;
+        } catch (error) {
+            console.error(error);
+            showStatus('❌ Ошибка перевода. Проверьте интернет или попробуйте другую фразу.', 'error');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-language"></i> Перевести';
+        }
+    }
+
+    async function translateToChinese(text, fromLang) {
+        const pair = fromLang === 'ru' ? 'ru|zh' : 'en|zh';
+        const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${pair}`);
+        const data = await response.json();
+        if (data.responseStatus === 200 && data.responseData.translatedText) {
+            let translated = data.responseData.translatedText;
+            if (translated === text) throw new Error('API не перевёл');
+            return translated;
+        }
+        throw new Error('Translation failed');
+    }
+
+    async function translateFromChinese(text, toLang) {
+        const pair = 'zh|' + (toLang === 'ru' ? 'ru' : 'en');
+        const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${pair}`);
+        const data = await response.json();
+        if (data.responseStatus === 200 && data.responseData.translatedText) {
+            return data.responseData.translatedText;
+        }
+        throw new Error('Translation failed');
+    }
+
+    function convertToPinyin(chineseText) {
+        if (typeof pinyinPro !== 'undefined' && pinyinPro.pinyin) {
+            return pinyinPro.pinyin(chineseText, { toneType: 'symbol' });
+        }
+        return chineseText;
+    }
+
+    function displayResult(chinese, pinyin, translation) {
+        const resultContainer = document.getElementById('resultContainer');
+        const chineseSpan = document.getElementById('chineseText');
+        const pinyinSpan = document.getElementById('pinyinText');
+        const russianSpan = document.getElementById('russianText');
+        resultContainer.style.display = 'block';
+        chineseSpan.textContent = chinese || '—';
+        pinyinSpan.textContent = pinyin || '—';
+        russianSpan.textContent = translation || '—';
+        const pinyinBlock = document.getElementById('pinyinBlock');
+        if (pinyinBlock) pinyinBlock.style.display = (chinese && chinese !== '—') ? 'block' : 'none';
+    }
+
+    function copyTranslation() {
+        const chinese = document.getElementById('chineseText').textContent;
+        const pinyin = document.getElementById('pinyinText').textContent;
+        const russian = document.getElementById('russianText').textContent;
+        const textToCopy = `Китайский: ${chinese}\nПиньинь: ${pinyin}\nПеревод: ${russian}`;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            showStatus('✓ Скопировано в буфер обмена', 'success');
+        }).catch(() => showStatus('⚠️ Не удалось скопировать', 'error'));
+    }
+
+    function getLangName(code) {
+        const names = { 'ru': 'Русский', 'zh': 'Китайский', 'en': 'Английский' };
+        return names[code] || code;
+    }
+
+    function showStatus(message, type) {
+        const statusDiv = document.getElementById('statusMessage');
+        const icons = { 'info': 'fa-info-circle', 'success': 'fa-check-circle', 'error': 'fa-exclamation-circle', 'warning': 'fa-exclamation-triangle' };
+        statusDiv.className = `status-message status-${type}`;
+        statusDiv.innerHTML = `<i class="fas ${icons[type]}"></i> ${message}`;
+        statusDiv.style.display = 'flex';
+        if (type !== 'error') {
+            setTimeout(() => { if (statusDiv.style.display === 'flex') statusDiv.style.display = 'none'; }, 5000);
+        }
+    }
+</script>
+</body>
+</html>

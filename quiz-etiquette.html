@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест: Китайский этикет — подарки, застолье, деловые встречи</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e1e2f; line-height: 1.5; }
+        :root {
+            --china-red: #C41E3A;
+            --china-red-dark: #A01830;
+            --gold: #D4AF37;
+            --light-bg: #fef8f5;
+            --gray-text: #4a5568;
+            --border-light: #f0e2dc;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .navbar {
+            padding: 20px 0;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(4px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--china-red);
+            text-decoration: none;
+        }
+        .logo span { font-weight: 400; color: #2d2d3a; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #2d2d3a; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--china-red); }
+        .mobile-menu-btn { display: none; font-size: 1.6rem; background: none; border: none; cursor: pointer; }
+
+        .hero {
+            background: linear-gradient(135deg, #fffaf7 0%, #fff0ea 100%);
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 12px; }
+        .hero p { font-size: 1.1rem; color: var(--gray-text); max-width: 700px; margin: 0 auto; }
+
+        .quiz-container { padding: 40px 0 80px; }
+        .quiz-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        .question-header {
+            background: #fef3ef;
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--china-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .question-num {
+            font-weight: 700;
+            color: var(--china-red);
+            background: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+        }
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 20px 24px;
+        }
+        .options {
+            padding: 0 24px 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 18px;
+            border-radius: 60px;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .option:hover { background: #fff5f0; border-color: var(--china-red); }
+        .option input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--china-red); }
+        .option label { flex: 1; cursor: pointer; font-weight: 500; }
+        .explanation {
+            margin: 0 24px 24px;
+            padding: 16px 20px;
+            border-radius: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid var(--gold);
+            display: none;
+        }
+        .explanation.show { display: block; }
+        .explanation.correct { background: #e6f7e6; border-left-color: #2b7a3e; }
+        .explanation.wrong { background: #ffe6e6; border-left-color: #c62828; }
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .btn-primary {
+            background: var(--china-red);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { background: var(--china-red-dark); transform: scale(1.02); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--china-red);
+            color: var(--china-red);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .result-box {
+            background: var(--light-bg);
+            border-radius: 32px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .result-score { font-size: 2.8rem; font-weight: 800; color: var(--china-red); }
+        .progress-bar { height: 10px; background: #eee; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--china-red); width: 0%; transition: width 0.3s; }
+        footer {
+            background: #1e1e2f;
+            color: #ccc;
+            padding: 48px 0 24px;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 1.8rem; }
+            .question-text { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="practice.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="container">
+        <h1>🎎 Тест: Китайский этикет</h1>
+        <p>Подарки, застолье, деловые встречи, поведение в гостях и храмах. 12 вопросов, которые помогут не ударить лицом в грязь.</p>
+    </div>
+</div>
+
+<div class="quiz-container">
+    <div class="container">
+        <div id="quizApp"></div>
+        <div class="quiz-footer" id="quizFooter" style="display: none;">
+            <button class="btn-primary" id="submitQuiz">Завершить тест и узнать результат</button>
+            <button class="btn-outline" id="resetQuiz">Пройти заново</button>
+        </div>
+        <div id="resultArea"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+        <div class="copyright"><i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — тест на знание этикета.</div>
+    </div>
+</footer>
+
+<script>
+    // Оригинальные вопросы (с правильным ответом по индексу в массиве options)
+    const originalQuestions = [
+        {
+            text: "Вы дарите подарок китайскому партнёру. Какую упаковку лучше выбрать?",
+            options: [
+                "Белую",
+                "Белую с серебристыми элементами",
+                "Чёрную строгую",
+                "Красную или золотую"
+            ],
+            correctIndex: 3,
+            explanation: "Красный и золотой — цвета удачи и процветания. Белый и чёрный ассоциируются с трауром."
+        },
+        {
+            text: "Какое число считается несчастливым в Китае и его лучше избегать в подарках (например, количество цветов)?",
+            options: ["8", "6", "9", "4"],
+            correctIndex: 3,
+            explanation: "Число 4 (四, sì) звучит почти как «смерть» (死, sǐ). 8 и 9, наоборот, — счастливые."
+        },
+        {
+            text: "Вы дарите часы в подарок. Как отреагирует китаец?",
+            options: [
+                "Обрадуется — это практично",
+                "Нейтрально — главное внимание",
+                "Попросит обменять на другие",
+                "Может расстроиться - плохой знак"
+            ],
+            correctIndex: 3,
+            explanation: "Фраза «дарить часы» омонимична выражению «отправлять на похороны». Лучше избегать таких подарков."
+        },
+        {
+            text: "Вы за столом с китайцами. Как правильно налить чай старшему по возрасту/статусу?",
+            options: [
+                "Налить себе, потом ему — так вежливо",
+                "Попросить официанта сделать это",
+                "Налить всем одновременно из одного чайника",
+                "Налить ему первому, двумя руками, слегка наклонив чайник"
+            ],
+            correctIndex: 3,
+            explanation: "В Китае иерархия важна: старшему/старшему по статусу — уважение в первую очередь. Две руки = знак почтения."
+        },
+        {
+            text: "Можно ли оставлять палочки для еды воткнутыми вертикально в рис?",
+            options: [
+                "Да, это удобно",
+                "Да, если рис ещё горячий",
+                "Нет, но только в ресторане",
+                "Нет, никогда"
+            ],
+            correctIndex: 3,
+            explanation: "Вертикально воткнутые палочки напоминают благовония на алтаре усопших — сильный культурный табу."
+        },
+        {
+            text: "Вам предложили попробовать новое блюдо. Вы не хотите, но отказываться неловко. Как поступить?",
+            options: [
+                "Чётко сказать «нет, спасибо» и отодвинуть тарелку",
+                "Молча игнорировать предложение",
+                "Взять немного, но не есть",
+                "Взять символически маленький кусочек и поблагодарить"
+            ],
+            correctIndex: 3,
+            explanation: "В Китае ценят «сохранение лица». Символическое принятие жеста — вежливый компромисс."
+        },
+        {
+            text: "Вам вручили визитку. Как правильно её принять?",
+            options: [
+                "Взять одной рукой, просмотреть и убрать в карман",
+                "Взять двумя руками, бегло взглянуть и положить в сумку",
+                "Взять, сразу сделать пометку на ней",
+                "Взять двумя руками, изучить, поблагодарить, аккуратно положить на стол или в визитницу"
+            ],
+            correctIndex: 3,
+            explanation: "Визитка = продолжение личности. Изучение — знак уважения. Класть в задний карман брюк = оскорбление."
+        },
+        {
+            text: "Китайский коллега говорит «возможно, мы подумаем» в ответ на ваше предложение. Что это чаще всего означает?",
+            options: [
+                "Он почти согласен, нужно чуть подтолкнуть",
+                "Он действительно возьмёт паузу и вернётся с ответом",
+                "Он ждёт, что вы сделаете встречное предложение",
+                "Вежливый способ сказать «нет», не теряя лица"
+            ],
+            correctIndex: 3,
+            explanation: "В китайской коммуникации прямой отказ считается грубым. «Подумаем» = мягкий отказ."
+        },
+        {
+            text: "Вы на деловом ужине. Кто должен первым поднять тост?",
+            options: [
+                "Тот, кто моложе — чтобы показать уважение",
+                "Тот, кто пригласил — по умолчанию",
+                "Тот, кто хочет начать разговор",
+                "Старший по статусу/возрасту или хозяин встречи"
+            ],
+            correctIndex: 3,
+            explanation: "Иерархия в тостах так же важна, как и в рассадке. Нарушение = сигнал о незнании правил."
+        },
+        {
+            text: "Вы пришли в гости к китайской семье. Что делать с обувью при входе?",
+            options: [
+                "Оставить как есть — если хозяева не сказали иначе",
+                "Снять и оставить где удобно",
+                "Снять и поставить носками к двери",
+                "Снять и поставить носками от входа"
+            ],
+            correctIndex: 3,
+            explanation: "В Китае чистота в доме — вопрос уважения. Обувь — «грязная», её не заносят внутрь."
+        },
+        {
+            text: "Вы в общественном транспорте. Можно ли громко разговаривать по телефону?",
+            options: [
+                "Да, если разговор срочный",
+                "Да, если никто не возражает",
+                "Нет, но можно шептать",
+                "Нет, лучше выйти для разговора или написать сообщение"
+            ],
+            correctIndex: 3,
+            explanation: "В Китае ценят коллективный комфорт. Громкие разговоры в общественных местах считаются неуважением к окружающим."
+        },
+        {
+            text: "Вы фотографируете храм. Что важно проверить перед съёмкой?",
+            options: [
+                "Чтобы в кадр не попали другие туристы",
+                "Чтобы камера была на бесшумном режиме",
+                "Чтобы не использовать вспышку внутри",
+                "Чтобы не было запрещающих знаков"
+            ],
+            correctIndex: 3,
+            explanation: "В храмах часто запрещено фотографировать святыни — это нарушение религиозного этикета. Всегда ищите значки или спрашивайте служителей."
+        }
+    ];
+
+    // Для каждого вопроса создадим перемешанную копию и запомним новый индекс правильного ответа
+    let shuffledQuestions = [];
+    let userAnswers = []; // будет хранить выбранный ТЕКСТ ответа (или null)
+
+    function shuffleArray(arr, correctVal) {
+        // arr - массив строк вариантов, correctVal - текст правильного ответа
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        // найти новый индекс правильного ответа
+        const newCorrectIndex = copy.indexOf(correctVal);
+        return { shuffledOptions: copy, newCorrectIndex };
+    }
+
+    function prepareShuffledQuestions() {
+        shuffledQuestions = originalQuestions.map(q => {
+            const correctText = q.options[q.correctIndex];
+            const { shuffledOptions, newCorrectIndex } = shuffleArray(q.options, correctText);
+            return {
+                text: q.text,
+                shuffledOptions: shuffledOptions,
+                correctIndex: newCorrectIndex,
+                explanation: q.explanation
+            };
+        });
+        userAnswers = new Array(shuffledQuestions.length).fill(null);
+    }
+
+    function renderQuiz() {
+        const app = document.getElementById('quizApp');
+        app.innerHTML = '';
+        shuffledQuestions.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            card.setAttribute('data-qidx', idx);
+            
+            const header = document.createElement('div');
+            header.className = 'question-header';
+            header.innerHTML = `<span class="question-num">Вопрос ${idx+1} из ${shuffledQuestions.length}</span>`;
+            
+            const qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerText = q.text;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+            q.shuffledOptions.forEach((opt, optIdx) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                const radioId = `q${idx}_opt${optIdx}`;
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${idx}`;
+                radio.value = opt;
+                radio.id = radioId;
+                if (userAnswers[idx] === opt) radio.checked = true;
+                radio.addEventListener('change', (e) => {
+                    if (quizSubmitted) return;
+                    userAnswers[idx] = e.target.value;
+                    const explDiv = card.querySelector('.explanation');
+                    if (explDiv) explDiv.classList.remove('show');
+                });
+                const label = document.createElement('label');
+                label.htmlFor = radioId;
+                label.innerText = opt;
+                optionDiv.appendChild(radio);
+                optionDiv.appendChild(label);
+                optionsDiv.appendChild(optionDiv);
+            });
+            
+            card.appendChild(header);
+            card.appendChild(qText);
+            card.appendChild(optionsDiv);
+            
+            const explDiv = document.createElement('div');
+            explDiv.className = 'explanation';
+            explDiv.innerHTML = `<strong><i class="fas fa-info-circle"></i> Пояснение:</strong> ${q.explanation}`;
+            card.appendChild(explDiv);
+            
+            app.appendChild(card);
+        });
+        
+        const footer = document.getElementById('quizFooter');
+        footer.style.display = 'flex';
+        const resultDiv = document.getElementById('resultArea');
+        resultDiv.innerHTML = '';
+        quizSubmitted = false;
+    }
+
+    let quizSubmitted = false;
+
+    function showResults() {
+        let unanswered = [];
+        for (let i = 0; i < shuffledQuestions.length; i++) {
+            if (userAnswers[i] === null) unanswered.push(i+1);
+        }
+        if (unanswered.length > 0) {
+            alert(`Вы не ответили на вопросы №${unanswered.join(', ')}. Ответьте на все.`);
+            return;
+        }
+        
+        quizSubmitted = true;
+        let score = 0;
+        for (let i = 0; i < shuffledQuestions.length; i++) {
+            const chosen = userAnswers[i];
+            const correctOptionText = shuffledQuestions[i].shuffledOptions[shuffledQuestions[i].correctIndex];
+            const isCorrect = (chosen === correctOptionText);
+            if (isCorrect) score++;
+            const card = document.querySelector(`.quiz-card[data-qidx="${i}"]`);
+            const explDiv = card.querySelector('.explanation');
+            explDiv.classList.add('show');
+            if (isCorrect) {
+                explDiv.classList.add('correct');
+                explDiv.classList.remove('wrong');
+                explDiv.innerHTML = `<strong><i class="fas fa-check-circle"></i> Верно!</strong><br>${shuffledQuestions[i].explanation}`;
+            } else {
+                explDiv.classList.add('wrong');
+                explDiv.classList.remove('correct');
+                explDiv.innerHTML = `<strong><i class="fas fa-times-circle"></i> Неправильно.</strong><br>Правильный ответ: "${correctOptionText}".<br><strong>Пояснение:</strong> ${shuffledQuestions[i].explanation}`;
+            }
+        }
+        
+        const percent = Math.round((score / shuffledQuestions.length) * 100);
+        let levelMessage = '';
+        if (score === 12) levelMessage = '🏆 Знаток высшего уровня! Вы безупречно знаете китайский этикет.';
+        else if (score >= 10) levelMessage = '🎓 Уверенный путешественник и бизнес-партнёр! Вы отлично ориентируетесь в правилах.';
+        else if (score >= 7) levelMessage = '👍 Базовый уровень — вы не попадёте в крупную неловкость, но стоит подучить некоторые моменты (подарки, тосты).';
+        else levelMessage = '⚠️ Новичок. Рекомендуем внимательно изучить наши материалы, чтобы случайно не обидеть китайцев.';
+        
+        const resultDiv = document.getElementById('resultArea');
+        resultDiv.innerHTML = `
+            <div class="result-box">
+                <div class="result-score">${score} / ${shuffledQuestions.length}</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: ${percent}%;"></div></div>
+                <p><strong>${percent}% правильных ответов</strong></p>
+                <p style="font-size:1.2rem; margin: 16px 0;">${levelMessage}</p>
+                <button class="btn-primary" id="retakeQuiz">Пройти тест заново</button>
+            </div>
+        `;
+        document.getElementById('retakeQuiz').addEventListener('click', () => {
+            resetQuiz();
+        });
+        document.getElementById('quizFooter').style.display = 'none';
+    }
+    
+    function resetQuiz() {
+        prepareShuffledQuestions(); // новый порядок вариантов
+        quizSubmitted = false;
+        renderQuiz();
+        document.getElementById('resultArea').innerHTML = '';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Инициализация
+    prepareShuffledQuestions();
+    renderQuiz();
+    document.getElementById('submitQuiz').addEventListener('click', showResults);
+    document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
+    
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Симулятор диалогов — Кофейня / Ресторан / Лапшичная</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e1e2f; line-height: 1.5; }
+        :root {
+            --china-red: #C41E3A;
+            --china-red-dark: #A01830;
+            --gold: #D4AF37;
+            --light-bg: #fef8f5;
+            --gray-text: #4a5568;
+            --border-light: #f0e2dc;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+            --correct-green: #2b7a3e;
+            --wrong-red: #c62828;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .navbar {
+            padding: 20px 0;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(4px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--china-red);
+            text-decoration: none;
+        }
+        .logo span { font-weight: 400; color: #2d2d3a; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #2d2d3a; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--china-red); }
+        .mobile-menu-btn { display: none; font-size: 1.6rem; background: none; border: none; cursor: pointer; }
+
+        .sim-hero {
+            background: linear-gradient(135deg, #fffaf7 0%, #fff0ea 100%);
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+        .sim-hero h1 { font-size: 2.5rem; margin-bottom: 12px; }
+        .sim-hero p { font-size: 1.1rem; color: var(--gray-text); }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+        .scene-selector, .level-selector {
+            display: flex;
+            gap: 12px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 60px;
+            box-shadow: var(--shadow-sm);
+        }
+        .scene-btn, .level-btn {
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f0f0f0;
+            color: #333;
+        }
+        .scene-btn.active, .level-btn.active {
+            background: var(--china-red);
+            color: white;
+        }
+        .simulator { padding: 20px 0 80px; }
+        .scene-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .scene-header {
+            background: #fef3ef;
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--china-red);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        .scene-header i { font-size: 1.5rem; color: var(--china-red); }
+        .dialogue { padding: 20px 24px; }
+        .message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        .message.waiter { justify-content: flex-start; }
+        .message.player { justify-content: flex-end; }
+        .bubble {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 24px;
+            font-size: 1rem;
+        }
+        .waiter .bubble {
+            background: #f0f0f0;
+            border-bottom-left-radius: 4px;
+        }
+        .player .bubble {
+            background: var(--china-red);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .options {
+            margin-top: 24px;
+            padding: 16px 24px;
+            background: var(--light-bg);
+            border-radius: 28px;
+        }
+        .options-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .opt-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .opt-btn {
+            background: white;
+            border: 1px solid var(--border-light);
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .opt-btn:hover:not(:disabled) {
+            background: var(--china-red);
+            color: white;
+            border-color: var(--china-red);
+        }
+        .opt-btn:disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+        /* Подсветка выбранного ответа */
+        .opt-btn.correct-choice {
+            background: var(--correct-green);
+            color: white;
+            border-color: var(--correct-green);
+        }
+        .opt-btn.wrong-choice {
+            background: var(--wrong-red);
+            color: white;
+            border-color: var(--wrong-red);
+        }
+        .feedback {
+            margin-top: 16px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            background: #fff9e6;
+            border-left: 4px solid var(--gold);
+        }
+        .feedback.correct { background: #e6f7e6; border-left-color: var(--correct-green); }
+        .feedback.wrong { background: #ffe6e6; border-left-color: var(--wrong-red); }
+        .score-box {
+            background: #fff0e6;
+            border-radius: 60px;
+            padding: 12px 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: var(--china-red);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .result-box {
+            text-align: center;
+            padding: 30px;
+            background: var(--light-bg);
+            border-radius: 40px;
+            margin-top: 30px;
+        }
+        footer {
+            background: #1e1e2f;
+            color: #ccc;
+            padding: 48px 0 24px;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .sim-hero h1 { font-size: 1.8rem; }
+            .controls { flex-direction: column; align-items: center; }
+            .bubble { max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="practice.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="sim-hero">
+    <div class="container">
+        <h1>🗣️ Симулятор диалогов: кофейня, ресторан, лапшичная</h1>
+        <p>Выберите ситуацию и уровень сложности. Отработайте реальные фразы — правильные варианты подсветятся зелёным, ошибки — красным.</p>
+    </div>
+    <div class="controls container">
+        <div class="scene-selector" id="sceneSelector">
+            <button class="scene-btn" data-scene="cafe">☕ Кофейня</button>
+            <button class="scene-btn" data-scene="restaurant">🍽️ Ресторан</button>
+            <button class="scene-btn" data-scene="noodles">🍜 Лапшичная</button>
+        </div>
+        <div class="level-selector" id="levelSelector">
+            <button class="level-btn" data-level="beginner">🟢 Новичок (пиньинь + перевод)</button>
+            <button class="level-btn" data-level="intermediate">🟡 Средний (пиньинь)</button>
+            <button class="level-btn" data-level="advanced">🔴 Продвинутый (только иероглифы)</button>
+        </div>
+    </div>
+</div>
+
+<div class="simulator">
+    <div class="container">
+        <div id="simulatorApp"></div>
+        <div id="restartBtn" style="text-align: center;"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+        <div class="copyright"><i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — тренируйте диалоги.</div>
+    </div>
+</footer>
+
+<script>
+    // ---------------------------- РАСШИРЕННЫЕ СЦЕНАРИИ С БОЛЬШИМ КОЛИЧЕСТВОМ ВАРИАНТОВ ----------------------------
+    const scenarios = {
+        cafe: {
+            title: "Кофейня (быстрый заказ)",
+            scenes: [
+                { id: 0, speaker: "barista", text: { beginner: "你好！请问您想喝什么？(Nǐ hǎo! Qǐngwèn nín xiǎng hē shénme?) — Здравствуйте! Что будете заказывать?", intermediate: "你好！请问您想喝什么？(Nǐ hǎo! Qǐngwèn nín xiǎng hē shénme?)", advanced: "你好！请问您想喝什么？" },
+                  options: [
+                    { textBeginner: "Здравствуйте! Мне американо, пожалуйста. (Nǐ hǎo! Wǒ yào Měishì, xièxie.)", textIntermediate: "你好！我要美式，谢谢。(Nǐ hǎo! Wǒ yào Měishì, xièxie.)", textAdvanced: "你好！我要美式，谢谢。", points: 5, feedback: "Отлично, вежливо и конкретно." },
+                    { textBeginner: "Кофе! (Грубо, без приветствия)", textIntermediate: "Кофе!", textAdvanced: "Кофе!", points: 0, feedback: "Очень грубо. В Китае здороваются всегда. Бариста обиделся." },
+                    { textBeginner: "А что посоветуете из безалкогольного? (Nín yǒu shénme tuījiàn de wú jiǔjīng yǐnliào?)", textIntermediate: "您有什么推荐的无酒精饮料？(Nín yǒu shénme tuījiàn de wú jiǔjīng yǐnliào?)", textAdvanced: "您有什么推荐的无酒精饮料？", points: 3, feedback: "Вопрос нормальный, но бариста ждёт прямой заказ. Лучше сразу сказать конкретный напиток." },
+                    { textBeginner: "Мне латте с соевым молоком. (Wǒ yào dòu nǎi nátiě.)", textIntermediate: "我要豆奶拿铁。(Wǒ yào dòu nǎi nátiě.)", textAdvanced: "我要豆奶拿铁。", points: 5, feedback: "Отлично, чётко и вежливо." }
+                  ], nextScene: 1 },
+                { id: 1, speaker: "barista", text: { beginner: "多大杯？小, 中还是大杯？(Duō dà bēi? Xiǎo, zhōng háishì dà bēi?) — Какой размер? Маленький, средний или большой?", intermediate: "多大杯？小, 中还是大杯？(Duō dà bēi? Xiǎo, zhōng háishì dà bēi?)", advanced: "多大杯？小, 中还是大杯？" },
+                  options: [
+                    { textBeginner: "Средний, пожалуйста. (Zhōng bēi, xièxie.)", textIntermediate: "中杯，谢谢。(Zhōng bēi, xièxie.)", textAdvanced: "中杯，谢谢。", points: 5, feedback: "Правильно, чётко и вежливо." },
+                    { textBeginner: "Самый большой! (Zuì dà de!)", textIntermediate: "最大的！(Zuì dà de!)", textAdvanced: "最大的！", points: 4, feedback: "Бариста поймёт, но лучше добавить 'пожалуйста'." },
+                    { textBeginner: "Не знаю... какой посоветуете?", textIntermediate: "我不知道...", textAdvanced: "我不知道...", points: 1, feedback: "Очередь задерживается. Лучше выбрать сразу." },
+                    { textBeginner: "Мне всё равно. (Wǒ suíbiàn.)", textIntermediate: "我随便。(Wǒ suíbiàn.)", textAdvanced: "我随便。", points: 1, feedback: "Это сбивает с толку. Продавец не знает, что предложить." }
+                  ], nextScene: 2 },
+                { id: 2, speaker: "barista", text: { beginner: "加冰还是热的？(Jiā bīng háishì rè de?) — Со льдом или горячий?", intermediate: "加冰还是热的？(Jiā bīng háishì rè de?)", advanced: "加冰还是热的？" },
+                  options: [
+                    { textBeginner: "Горячий, пожалуйста. (Rè de, xièxie.)", textIntermediate: "热的，谢谢。(Rè de, xièxie.)", textAdvanced: "热的，谢谢。", points: 5, feedback: "Отлично, ясно и вежливо." },
+                    { textBeginner: "Со льдом, но не слишком холодный.", textIntermediate: "加冰，但不要太冷。", textAdvanced: "加冰，但不要太冷。", points: 3, feedback: "Немного странная просьба, но бариста поймёт." },
+                    { textBeginner: "Мне без разницы. (Dōu xíng.)", textIntermediate: "都行。(Dōu xíng.)", textAdvanced: "都行。", points: 2, feedback: "Лучше выбрать что-то конкретное." }
+                  ], nextScene: 3 },
+                { id: 3, speaker: "barista", text: { beginner: "要加糖、糖浆或牛奶吗？有香草、焦糖和燕麦奶。(Yào jiā táng, tángjiāng huò niúnǎi ma? Yǒu xiāngcǎo, jiāotáng hé yànmài nǎi.) — Сахар, сироп или молоко? Есть ванильный, карамель, овсяное.", intermediate: "要加糖、糖浆或牛奶吗？有香草、焦糖和燕麦奶。(Yào jiā táng, tángjiāng huò niúnǎi ma? Yǒu xiāngcǎo, jiāotáng hé yànmài nǎi.)", advanced: "要加糖、糖浆或牛奶吗？有香草、焦糖和燕麦奶。" },
+                  options: [
+                    { textBeginner: "Без сахара и молока, просто чёрный. (Bù jiā táng hé niúnǎi, chún hēikāfēi.)", textIntermediate: "不加糖和牛奶，纯黑咖啡。(Bù jiā táng hé niúnǎi, chún hēikāfēi.)", textAdvanced: "不加糖和牛奶，纯黑咖啡。", points: 5, feedback: "Идеально чётко." },
+                    { textBeginner: "Немного овсяного молока. (Yīdiǎn yànmài nǎi.)", textIntermediate: "一点燕麦奶。(Yīdiǎn yànmài nǎi.)", textAdvanced: "一点燕麦奶。", points: 4, feedback: "Хорошо, но в американо обычно не добавляют — бариста уточнит." },
+                    { textBeginner: "Добавьте пять кусочков сахара. (Jiā wǔ kuài táng.)", textIntermediate: "加五块糖。(Jiā wǔ kuài táng.)", textAdvanced: "加五块糖。", points: 2, feedback: "Очень много сахара, но это ваш выбор." },
+                    { textBeginner: "Сироп карамельный, побольше! (Duō jiā jiāotáng jiāng.)", textIntermediate: "多加焦糖浆。(Duō jiā jiāotáng jiāng.)", textAdvanced: "多加焦糖浆。", points: 3, feedback: "Бариста сделает, но сладко." }
+                  ], nextScene: 4 },
+                { id: 4, speaker: "barista", text: { beginner: "在这儿喝还是带走？(Zài zhèr hē háishì dài zǒu?) — Здесь будете пить или с собой?", intermediate: "在这儿喝还是带走？(Zài zhèr hē háishì dài zǒu?)", advanced: "在这儿喝还是带走？" },
+                  options: [
+                    { textBeginner: "С собой, пожалуйста. (Dài zǒu, xièxie.)", textIntermediate: "带走，谢谢。(Dài zǒu, xièxie.)", textAdvanced: "带走，谢谢。", points: 5, feedback: "Отлично." },
+                    { textBeginner: "Здесь. (Zài zhèr.)", textIntermediate: "在这儿。(Zài zhèr.)", textAdvanced: "在这儿。", points: 4, feedback: "Хорошо, но 'пожалуйста' сделает вежливее." }
+                  ], nextScene: 5 },
+                { id: 5, speaker: "barista", text: { beginner: "好的。现金还是扫码？(Hǎo de. Xiànjīn háishì sǎo ma?) — Хорошо. Наличные или QR-код?", intermediate: "好的。现金还是扫码？(Hǎo de. Xiànjīn háishì sǎo ma?)", advanced: "好的。现金还是扫码？" },
+                  options: [
+                    { textBeginner: "Можно через WeChat? (Kěyǐ yòng WeChat ma?)", textIntermediate: "可以用微信吗？(Kěyǐ yòng WeChat ma?)", textAdvanced: "可以用微信吗？", points: 5, feedback: "Да, это стандарт." },
+                    { textBeginner: "Наличными. (Xiànjīn.)", textIntermediate: "现金。(Xiànjīn.)", textAdvanced: "现金。", points: 3, feedback: "Нормально, но в Китае чаще платят по QR." },
+                    { textBeginner: "А скидка по карте постоянного клиента есть?", textIntermediate: "有会员折扣吗？", textAdvanced: "有会员折扣吗？", points: 1, feedback: "Неуместно для небольшой кофейни." }
+                  ], nextScene: 6 },
+                { id: 6, speaker: "barista", text: { beginner: "扫码吧，一共28元。(Sǎo ma ba, yīgòng 28 yuán.) — Сканируйте QR, итого 28 юаней. Заказ будет готов через пару минут.", intermediate: "扫码吧，一共28元。(Sǎo ma ba, yīgòng 28 yuán.)", advanced: "扫码吧，一共28元。" },
+                  options: [
+                    { textBeginner: "Отлично, спасибо! (Hǎo de, xièxie!)", textIntermediate: "好的，谢谢！(Hǎo de, xièxie!)", textAdvanced: "好的，谢谢！", points: 5, feedback: "Вежливо, всё отлично." },
+                    { textBeginner: "Спасибо, хорошего дня!", textIntermediate: "谢谢，祝您今天愉快！", textAdvanced: "谢谢，祝您今天愉快！", points: 5, feedback: "Очень вежливо и дружелюбно." }
+                  ], nextScene: null }
+            ],
+            maxPoints: 5*7 // 35
+        },
+        restaurant: {
+            title: "Ресторан (полный цикл)",
+            scenes: [
+                { id: 0, speaker: "hostess", text: { beginner: "您好！几位？(Nín hǎo! Jǐ wèi?) — Здравствуйте! На сколько человек?", intermediate: "您好！几位？(Nín hǎo! Jǐ wèi?)", advanced: "您好！几位？" },
+                  options: [
+                    { textBeginner: "Добрый день! Нас двое. (Nǐ hǎo! Liǎng wèi.)", textIntermediate: "你好！两位。(Nǐ hǎo! Liǎng wèi.)", textAdvanced: "你好！两位。", points: 5, feedback: "Вежливо и точно." },
+                    { textBeginner: "Нас четверо, но мы подождём столик у окна. (Sì wèi, wǒmen děng kàochuāng de wèizi.)", textIntermediate: "四位，我们等靠窗的位置。(Sì wèi, wǒmen děng kàochuāng de wèizi.)", textAdvanced: "四位，我们等靠窗的位置。", points: 5, feedback: "Хорошо, вы точно выразили пожелание." },
+                    { textBeginner: "Два. (Показать два пальца, ничего не сказать)", textIntermediate: "Два пальца", textAdvanced: "Два пальца", points: 2, feedback: "Можно и жестом, но лучше добавить слово." },
+                    { textBeginner: "Мы без брони, но нам всё равно где сидеть.", textIntermediate: "我们没有预订，哪里都行。", textAdvanced: "我们没有预订，哪里都行。", points: 3, feedback: "Хорошо, но немного неопределённо." }
+                  ], nextScene: 1 },
+                { id: 1, speaker: "hostess", text: { beginner: "这边请，窗边有空位。这是菜单，服务员马上来。(Zhèbiān qǐng, chuāng biān yǒu kòng wèi. Zhè shì càidān, fúwùyuán mǎshàng lái.) — Проходите, у окна свободно. Вот меню, официант подойдёт.", intermediate: "这边请，窗边有空位。这是菜单，服务员马上来。(Zhèbiān qǐng, chuāng biān yǒu kòng wèi. Zhè shì càidān, fúwùyuán mǎshàng lái.)", advanced: "这边请，窗边有空位。这是菜单，服务员马上来。" },
+                  options: [], // автоматический переход
+                  nextScene: 2 },
+                { id: 2, speaker: "waiter", text: { beginner: "晚上好！可以点餐了吗？(Wǎnshàng hǎo! Kěyǐ diǎn cān le ma?) — Добрый вечер! Готовы сделать заказ?", intermediate: "晚上好！可以点餐了吗？(Wǎnshàng hǎo! Kěyǐ diǎn cān le ma?)", advanced: "晚上好！可以点餐了吗？" },
+                  options: [
+                    { textBeginner: "Да, пожалуйста. Нам мапо тофу (сычуаньский тофу), жареный рис с креветками и два зелёных чая. (Hǎo de. Yī fèn mápó dòufu, yī fèn xiā rén chǎofàn, liǎng bēi lǜ chá.)", textIntermediate: "好的。一份麻婆豆腐，一份虾仁炒饭，两杯绿茶。(Hǎo de. Yī fèn mápó dòufu, yī fèn xiā rén chǎofàn, liǎng bēi lǜ chá.)", textAdvanced: "好的。一份麻婆豆腐，一份虾仁炒饭，两杯绿茶。", points: 5, feedback: "Отличный заказ! Всё понятно." },
+                    { textBeginner: "Мы ещё не готовы, подойдите через 5 минут (Wǒmen hái méi zhǔnbèi hǎo, qǐng wǔ fēnzhōng hòu lái)", textIntermediate: "我们还没准备好，请五分钟后来说。(Wǒmen hái méi zhǔnbèi hǎo, qǐng wǔ fēnzhōng hòu lái)", textAdvanced: "我们还没准备好，请五分钟后来说。", points: 3, feedback: "Нормально, но официант мог бы подождать." },
+                    { textBeginner: "Принесите самое острое блюдо и много риса.", textIntermediate: "给我最辣的菜和很多米饭。", textAdvanced: "给我最辣的菜和很多米饭。", points: 2, feedback: "Слишком обобщённо, лучше уточнить." }
+                  ], nextScene: 3 },
+                { id: 3, speaker: "waiter", text: { beginner: "辣度可以调吗？默认是中辣。(Làdù kěyǐ tiáo ma? Mòrèn shì zhōng là.) — Остроту регулируете? По умолчанию средняя.", intermediate: "辣度可以调吗？默认是中辣。(Làdù kěyǐ tiáo ma? Mòrèn shì zhōng là.)", advanced: "辣度可以调吗？默认是中辣。" },
+                  options: [
+                    { textBeginner: "Давайте лёгкую остроту, мы не любим острое. (Qǐng gěi wǒ wēi là, wǒmen bù xǐhuān là.)", textIntermediate: "请给我微辣，我们不喜欢辣。(Qǐng gěi wǒ wēi là, wǒmen bù xǐhuān là.)", textAdvanced: "请给我微辣，我们不喜欢辣。", points: 5, feedback: "Правильно уточнили! Официант понял." },
+                    { textBeginner: "Среднюю. (Zhōng là.)", textIntermediate: "中辣。(Zhōng là.)", textAdvanced: "中辣。", points: 3, feedback: "Нормально, но можно было уточнить лёгкую, если не любите острое." },
+                    { textBeginner: "Сделайте пожарче, люблю острое! (Nòng là yīdiǎn, wǒ xǐhuān là!)", textIntermediate: "弄辣一点，我喜欢辣！", textAdvanced: "弄辣一点，我喜欢辣！", points: 4, feedback: "Хорошо, официант запомнит." },
+                    { textBeginner: "Не знаю... может, среднюю? (Bù zhīdào... zhōng là ba)", textIntermediate: "不知道... 中辣吧", textAdvanced: "不知道... 中辣吧", points: 1, feedback: "Неуверенный ответ, лучше определиться." }
+                  ], nextScene: 4 },
+                { id: 4, speaker: "waiter", text: { beginner: "好的，还需要别的吗？(Hǎo de, hái xūyào bié de ma?) — Ещё что-нибудь?", intermediate: "好的，还需要别的吗？(Hǎo de, hái xūyào bié de ma?)", advanced: "好的，还需要别的吗？" },
+                  options: [
+                    { textBeginner: "Пока всё, спасибо. (Bù yào le, xièxie.)", textIntermediate: "不要了，谢谢。(Bù yào le, xièxie.)", textAdvanced: "不要了，谢谢。", points: 5, feedback: "Вежливо." },
+                    { textBeginner: "Принесите ещё салат из огурцов. (Zài lái yī fèn liángbàn huángguā.)", textIntermediate: "再来一份凉拌黄瓜。", textAdvanced: "再来一份凉拌黄瓜。", points: 5, feedback: "Отлично, дополнительный заказ." }
+                  ], nextScene: 5 },
+                { id: 5, speaker: "customer", text: "", trigger: "after_eating", waitMessage: "Вы поели. Пришло время попросить счёт.", options: [
+                    { textBeginner: "Извините, можно счёт, пожалуйста? (Duìbuqǐ, qǐng gěi wǒ mǎi dān.)", textIntermediate: "对不起，请给我买单。(Duìbuqǐ, qǐng gěi wǒ mǎi dān.)", textAdvanced: "对不起，请给我买单。", points: 5, feedback: "Идеальная фраза." },
+                    { textBeginner: "Счёт! (Громко, без вежливости)", textIntermediate: "买单！", textAdvanced: "买单！", points: 1, feedback: "Слишком резко, лучше добавить 'пожалуйста'." }
+                  ], nextScene: 6 },
+                { id: 6, speaker: "waiter", text: { beginner: "好的，马上来。现金、卡还是扫码？(Hǎo de, mǎshàng lái. Xiànjīn, kǎ háishì sǎo ma?) — Сейчас принесу. Наличные, карта или QR?", intermediate: "好的，马上来。现金、卡还是扫码？(Hǎo de, mǎshàng lái. Xiànjīn, kǎ háishì sǎo ma?)", advanced: "好的，马上来。现金、卡还是扫码？" },
+                  options: [
+                    { textBeginner: "Через WeChat. (WeChat zhīfù.)", textIntermediate: "微信支付。(WeChat zhīfù.)", textAdvanced: "微信支付。", points: 5, feedback: "Отлично." },
+                    { textBeginner: "Картой UnionPay. (Yínlián kǎ.)", textIntermediate: "银联卡。", textAdvanced: "银联卡。", points: 4, feedback: "Хорошо, терминал есть." },
+                    { textBeginner: "Наличными, только без сдачи не надо.", textIntermediate: "现金，不用找零。", textAdvanced: "现金，不用找零。", points: 2, feedback: "Лучше платить ровно, чаевые не приняты." }
+                  ], nextScene: 7 },
+                { id: 7, speaker: "waiter", text: { beginner: "一共135元。谢谢，欢迎再来！(Yīgòng 135 yuán. Xièxie, huānyíng zài lái!)", intermediate: "一共135元。谢谢，欢迎再来！(Yīgòng 135 yuán. Xièxie, huānyíng zài lái!)", advanced: "一共135元。谢谢，欢迎再来！" },
+                  options: [
+                    { textBeginner: "Спасибо, было вкусно! (Xièxie, hěn hǎochī!)", textIntermediate: "谢谢，很好吃！(Xièxie, hěn hǎochī!)", textAdvanced: "谢谢，很好吃！", points: 5, feedback: "Очень вежливо." },
+                    { textBeginner: "Нормально, но могли бы побыстрее.", textIntermediate: "还行，但可以快点。", textAdvanced: "还行，但可以快点。", points: 0, feedback: "Невежливо, лучше промолчать." }
+                  ], nextScene: null }
+            ],
+            maxPoints: 35
+        },
+        noodles: {
+            title: "Местная закусочная / Лапшичная",
+            scenes: [
+                { id: 0, speaker: "cashier", text: { beginner: "你好！吃什么？(Nǐ hǎo! Chī shénme?) — Привет! Что будете есть?", intermediate: "你好！吃什么？(Nǐ hǎo! Chī shénme?)", advanced: "你好！吃什么？" },
+                  options: [
+                    { textBeginner: "Здравствуйте! Дайте, пожалуйста, порцию лапши с говядиной. (Yī fèn niúròu miàn.)", textIntermediate: "一份牛肉面。(Yī fèn niúròu miàn.)", textAdvanced: "一份牛肉面。", points: 5, feedback: "Отлично, конкретно." },
+                    { textBeginner: "Покажите меню, я не знаю что есть.", textIntermediate: "给我菜单。", textAdvanced: "给我菜单。", points: 3, feedback: "Можно и так, но обычно здесь висят картинки." },
+                    { textBeginner: "Лапшу с курицей, но без лука. (Yī fèn jīròu miàn, bù yào yángcōng.)", textIntermediate: "一份鸡肉面，不要洋葱。", textAdvanced: "一份鸡肉面，不要洋葱。", points: 5, feedback: "Хорошо, все пожелания учтены." }
+                  ], nextScene: 1 },
+                { id: 1, speaker: "cashier", text: { beginner: "汤要清汤还是浓汤？面要细面还是宽面？(Tāng yào qīngtāng háishì nóngtāng? Miàn yào xì miàn háishì kuān miàn?) — Бульон прозрачный или насыщенный? Лапша тонкая или широкая?", intermediate: "汤要清汤还是浓汤？面要细面还是宽面？(Tāng yào qīngtāng háishì nóngtāng? Miàn yào xì miàn háishì kuān miàn?)", advanced: "汤要清汤还是浓汤？面要细面还是宽面？" },
+                  options: [
+                    { textBeginner: "Насыщенный бульон и тонкую лапшу. (Nóng tāng hé xì miàn.)", textIntermediate: "浓汤和细面。(Nóng tāng hé xì miàn.)", textAdvanced: "浓汤和细面。", points: 5, feedback: "Понятно." },
+                    { textBeginner: "Прозрачный бульон и широкую лапшу. (Qīngtāng hé kuān miàn.)", textIntermediate: "清汤和宽面。(Qīngtāng hé kuān miàn.)", textAdvanced: "清汤和宽面。", points: 5, feedback: "Хорошо." },
+                    { textBeginner: "Мне всё равно, сделайте как обычно.", textIntermediate: "随便，常规做。", textAdvanced: "随便，常规做。", points: 2, feedback: "Продавцу не нравится, когда не могут определиться." }
+                  ], nextScene: 2 },
+                { id: 2, speaker: "cashier", text: { beginner: "辣度？有不辣、微辣、中辣和爆辣。(Làdù? Yǒu bù là, wēi là, zhōng là hé bào là.) — Остроту? Без перца, лёгкая, средняя и 'огонь'.", intermediate: "辣度？有不辣、微辣、中辣和爆辣。(Làdù? Yǒu bù là, wēi là, zhōng là hé bào là.)", advanced: "辣度？有不辣、微辣、中辣和爆辣。" },
+                  options: [
+                    { textBeginner: "Лёгкую, пожалуйста. (Wēi là, xièxie.)", textIntermediate: "微辣，谢谢。(Wēi là, xièxie.)", textAdvanced: "微辣，谢谢。", points: 5, feedback: "Отлично." },
+                    { textBeginner: "Сделайте 'огонь', я люблю по-сычуаньски! (Bào là!)", textIntermediate: "爆辣！", textAdvanced: "爆辣！", points: 4, feedback: "Для любителей очень острого." },
+                    { textBeginner: "Без острого. (Bù là.)", textIntermediate: "不辣。(Bù là.)", textAdvanced: "不辣。", points: 5, feedback: "Хорошо." }
+                  ], nextScene: 3 },
+                { id: 3, speaker: "cashier", text: { beginner: "要加料吗？花生、香菜、腌黄瓜都包含，还是单独点？(Yào jiā liào ma? Huāshēng, xiāngcài, yān huángguā dōu bāohán, háishì dāndú diǎn?) — Добавки нужны? Арахис, зелень, маринованный огурец — всё включено или отдельно?", intermediate: "要加料吗？花生、香菜、腌黄瓜都包含，还是单独点？(Yào jiā liào ma? Huāshēng, xiāngcài, yān huángguā dōu bāohán, háishì dāndú diǎn?)", advanced: "要加料吗？花生、香菜、腌黄瓜都包含，还是单独点？" },
+                  options: [
+                    { textBeginner: "Всё включено, спасибо. (Dōu bāohán ba, xièxie.)", textIntermediate: "都包含吧，谢谢。(Dōu bāohán ba, xièxie.)", textAdvanced: "都包含吧，谢谢。", points: 5, feedback: "Хорошо." },
+                    { textBeginner: "Без арахиса, аллергия. (Bù yào huāshēng, guòmǐn.)", textIntermediate: "不要花生，过敏。", textAdvanced: "不要花生，过敏。", points: 5, feedback: "Продавец учёл." }
+                  ], nextScene: 4 },
+                { id: 4, speaker: "cashier", text: { beginner: "在这儿吃还是带走？(Zài zhèr chī háishì dài zǒu?)", intermediate: "在这儿吃还是带走？(Zài zhèr chī háishì dài zǒu?)", advanced: "在这儿吃还是带走？" },
+                  options: [
+                    { textBeginner: "С собой. (Dài zǒu.)", textIntermediate: "带走。(Dài zǒu.)", textAdvanced: "带走。", points: 5, feedback: "Понял." },
+                    { textBeginner: "Здесь.", textIntermediate: "在这儿吃。", textAdvanced: "在这儿吃。", points: 4, feedback: "Хорошо." }
+                  ], nextScene: 5 },
+                { id: 5, speaker: "cashier", text: { beginner: "一共35元。现金还是扫码？(Yīgòng 35 yuán. Xiànjīn háishì sǎo ma?)", intermediate: "一共35元。现金还是扫码？(Yīgòng 35 yuán. Xiànjīn háishì sǎo ma?)", advanced: "一共35元。现金还是扫码？" },
+                  options: [
+                    { textBeginner: "Можно картой? (Kěyǐ shuākǎ ma?)", textIntermediate: "可以刷卡吗？(Kěyǐ shuākǎ ma?)", textAdvanced: "可以刷卡吗？", points: 5, feedback: "Да, терминал справа." },
+                    { textBeginner: "Сканирую QR. (Sǎo ma.)", textIntermediate: "扫码。(Sǎo ma.)", textAdvanced: "扫码。", points: 5, feedback: "Отлично." },
+                    { textBeginner: "Оплачу наличными, дайте сдачу с 50.", textIntermediate: "现金付50找零。", textAdvanced: "现金付50找零。", points: 4, feedback: "ОК." }
+                  ], nextScene: 6 },
+                { id: 6, speaker: "cashier", text: { beginner: "可以，终端在旁边。扫码也行。请拿好，3号窗口取餐。(Kěyǐ, zhōngduān zài pángbiān. Sǎo ma yě xíng. Qǐng ná hǎo, 3 hào chuāngkǒu qǔ cān.) — Да, терминал рядом. Или сканируйте код. Заказ готов, заберите на окне №3. Приятного аппетита!", intermediate: "可以，终端在旁边。扫码也行。请拿好，3号窗口取餐。(Kěyǐ, zhōngduān zài pángbiān. Sǎo ma yě xíng. Qǐng ná hǎo, 3 hào chuāngkǒu qǔ cān.)", advanced: "可以，终端在旁边。扫码也行。请拿好，3号窗口取餐。" },
+                  options: [
+                    { textBeginner: "Спасибо! (Xièxie!)", textIntermediate: "谢谢！(Xièxie!)", textAdvanced: "谢谢！", points: 5, feedback: "Отлично." },
+                    { textBeginner: "Отлично, спасибо, хорошего дня!", textIntermediate: "很好，谢谢，祝您今天愉快！", textAdvanced: "很好，谢谢，祝您今天愉快！", points: 5, feedback: "Очень вежливо." }
+                  ], nextScene: null }
+            ],
+            maxPoints: 35
+        }
+    };
+
+    let currentScenario = 'cafe';
+    let currentLevel = 'beginner';
+    let currentSceneIndex = 0;
+    let totalPoints = 0;
+    let waitingForNext = false;
+    let simulatorFinished = false;
+    let scenesArray = [];
+    let dialogueHistory = [];
+
+    function getLocalizedText(textObj) {
+        if (!textObj) return "";
+        return textObj[currentLevel];
+    }
+
+    function renderSimulator() {
+        const app = document.getElementById('simulatorApp');
+        if (simulatorFinished) {
+            const maxPoints = scenarios[currentScenario].maxPoints;
+            const percent = Math.round((totalPoints / maxPoints) * 100);
+            let message = "";
+            if (percent >= 80) message = "Превосходно! Вы легко справляетесь с диалогом. Местные будут приятно удивлены! 🎉";
+            else if (percent >= 60) message = "Хорошо! Есть небольшие ошибки, но вы сможете объясниться. Повторите ещё раз для уверенности.";
+            else message = "Стоит подтянуть фразы. Пройдите симулятор ещё раз или изучите раздел «Практика». У вас всё получится! 💪";
+            app.innerHTML = `
+                <div class="result-box">
+                    <h2><i class="fas fa-flag-checkered"></i> Диалог завершён!</h2>
+                    <div class="score-box">Ваши очки: ${totalPoints} / ${maxPoints} (${percent}%)</div>
+                    <p>${message}</p>
+                    <button class="btn-primary" id="restartScenario">Пройти этот сценарий заново</button>
+                </div>
+            `;
+            document.getElementById('restartBtn').innerHTML = '';
+            document.getElementById('restartScenario').addEventListener('click', () => {
+                initScenario(currentScenario);
+            });
+            return;
+        }
+
+        const scene = scenesArray[currentSceneIndex];
+        if (!scene) return;
+
+        // История диалога
+        let historyHtml = '<div class="scene-card"><div class="scene-header"><i class="fas fa-comment-dots"></i> История диалога</div><div class="dialogue" style="max-height: 300px; overflow-y: auto;">';
+        if (dialogueHistory.length === 0) historyHtml += '<p style="color: gray;">Пока нет сообщений.</p>';
+        else {
+            for (let msg of dialogueHistory) {
+                const bubbleClass = msg.role === 'waiter' ? 'waiter' : 'player';
+                const icon = msg.role === 'waiter' ? '🧑‍🍳' : '🧑';
+                historyHtml += `<div class="message ${bubbleClass}"><div class="bubble">${icon} ${msg.text}</div></div>`;
+            }
+        }
+        historyHtml += '</div></div>';
+
+        // Текущая сцена
+        let sceneHtml = '';
+        if (scene.options && scene.options.length > 0) {
+            sceneHtml = `
+                <div class="scene-card">
+                    <div class="scene-header"><i class="fas fa-comments"></i> ${scenarios[currentScenario].title} — шаг ${currentSceneIndex+1}</div>
+                    <div class="dialogue">
+                        <div class="message waiter"><div class="bubble">🧑‍🍳 ${getLocalizedText(scene.text)}</div></div>
+                    </div>
+                    <div class="options">
+                        <div class="options-title"><i class="fas fa-hand-point-right"></i> Ваш ответ:</div>
+                        <div class="opt-buttons" id="optButtons"></div>
+                        <div id="feedbackArea"></div>
+                    </div>
+                </div>
+            `;
+            app.innerHTML = historyHtml + sceneHtml;
+            const optContainer = document.getElementById('optButtons');
+            scene.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'opt-btn';
+                btn.innerText = getLocalizedText({ beginner: opt.textBeginner, intermediate: opt.textIntermediate, advanced: opt.textAdvanced });
+                btn.addEventListener('click', () => {
+                    if (waitingForNext) return;
+                    waitingForNext = true;
+                    totalPoints += opt.points;
+                    dialogueHistory.push({ role: 'player', text: getLocalizedText({ beginner: opt.textBeginner, intermediate: opt.textIntermediate, advanced: opt.textAdvanced }) });
+                    
+                    // Подсветка выбранной кнопки
+                    if (opt.points >= 4) {
+                        btn.classList.add('correct-choice');
+                    } else if (opt.points <= 1) {
+                        btn.classList.add('wrong-choice');
+                    } else {
+                        btn.classList.add('correct-choice'); // нейтральные тоже можно зелёным, но лучше отдельный класс не нужен
+                    }
+                    
+                    const feedbackDiv = document.getElementById('feedbackArea');
+                    const feedbackClass = opt.points >= 4 ? 'correct' : (opt.points === 0 ? 'wrong' : '');
+                    feedbackDiv.innerHTML = `<div class="feedback ${feedbackClass}"><strong>${opt.points >= 4 ? '✓' : (opt.points === 0 ? '✗' : 'ℹ️')}</strong> ${opt.feedback}</div>`;
+                    document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+                    setTimeout(() => {
+                        const nextIdx = scene.nextScene;
+                        if (nextIdx !== null && nextIdx < scenesArray.length) {
+                            currentSceneIndex = nextIdx;
+                            waitingForNext = false;
+                            renderSimulator();
+                        } else {
+                            simulatorFinished = true;
+                            renderSimulator();
+                        }
+                    }, 1500);
+                });
+                optContainer.appendChild(btn);
+            });
+        } else {
+            // автоматический переход
+            sceneHtml = `
+                <div class="scene-card">
+                    <div class="scene-header"><i class="fas fa-comments"></i> ${scenarios[currentScenario].title}</div>
+                    <div class="dialogue">
+                        <div class="message waiter"><div class="bubble">🧑‍🍳 ${getLocalizedText(scene.text)}</div></div>
+                    </div>
+                </div>
+            `;
+            app.innerHTML = historyHtml + sceneHtml;
+            setTimeout(() => {
+                if (scene.nextScene !== undefined && scene.nextScene !== null) {
+                    currentSceneIndex = scene.nextScene;
+                    renderSimulator();
+                } else {
+                    simulatorFinished = true;
+                    renderSimulator();
+                }
+            }, 1500);
+        }
+    }
+
+    function initScenario(sceneKey) {
+        currentScenario = sceneKey;
+        const data = scenarios[sceneKey];
+        scenesArray = data.scenes;
+        currentSceneIndex = 0;
+        totalPoints = 0;
+        dialogueHistory = [];
+        simulatorFinished = false;
+        waitingForNext = false;
+        renderSimulator();
+    }
+
+    function setLevel(level) {
+        currentLevel = level;
+        initScenario(currentScenario);
+    }
+
+    function setScene(scene) {
+        currentScenario = scene;
+        initScenario(currentScenario);
+    }
+
+    // UI обработчики
+    document.querySelectorAll('.scene-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.scene-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            setScene(btn.dataset.scene);
+        });
+    });
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            setLevel(btn.dataset.level);
+        });
+    });
+    // Инициализация
+    document.querySelector('.scene-btn[data-scene="cafe"]').classList.add('active');
+    document.querySelector('.level-btn[data-level="beginner"]').classList.add('active');
+    initScenario('cafe');
+
+    // Мобильное меню
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

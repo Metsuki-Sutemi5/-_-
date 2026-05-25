@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Кейсы для студентов — Секреты Поднебесной</title>
+    <link rel="stylesheet" href="style-students-cases.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#services">Главные разделы</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="tourism-cases.html">Кейсы туристам</a></li>
+            <li><a href="students-cases.html" class="active">Кейсы студентам</a></li>
+            <li><a href="index.html#practice-example">Практика</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content animate-up">
+                <div class="hero-badge"><i class="fas fa-graduation-cap"></i> Ошибки и лайфхаки</div>
+                <h1>Кейсы студентов в Китае<span class="hero-highlight">: как поступить, учиться и не вылететь</span></h1>
+                <p class="hero-desc">Реальные истории: от подачи документов до защиты диплома. Учимся на чужом опыте, чтобы ваша учёба прошла гладко.</p>
+            </div>
+            <div class="hero-image animate-up delay-1">
+                <img src="./imgs/dragon.png" alt="Дракон">
+            </div>
+        </div>
+    </section>
+
+    <!-- Сетка тем -->
+    <section class="topics">
+        <div class="container">
+            <h2 class="section-title">Студенческие ситуации</h2>
+            <p class="section-subtitle">Выберите тему — внутри реальные кейсы с решениями</p>
+            <div class="topics-grid">
+                <!-- 1. Поступление -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">📄</div>
+                    <h3>Поступление и документы</h3>
+                    <p>Как выбрать вуз, подать заявку, не потерять переводы, легализовать аттестат и получить приглашение.</p>
+                    <a href="students-admission-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 2. Виза и регистрация -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">🛂</div>
+                    <h3>Виза и полицейский учёт</h3>
+                    <p>Продление X1, смена вуза, регистрация по месту жительства, штрафы за просрочку.</p>
+                    <a href="students-visa-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 3. Поиск жилья -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">🏢</div>
+                    <h3>Жильё для студента</h3>
+                    <p>Общага vs аренда, как не нарваться на мошенников, договор на китайском, залог.</p>
+                    <a href="student-housing-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 4. Учёба и преподаватели -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">📚</div>
+                    <h3>Учёба и общение с преподавателями</h3>
+                    <p>Как сдавать экзамены, писать курсовые, обращаться к профессору и не провалить сессию.</p>
+                    <a href="student-studies-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 5. Стажировки и подработка -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">💼</div>
+                    <h3>Стажировки и работа для студентов</h3>
+                    <p>Легальная подработка, разрешение на работу, стажировка в китайской компании, кейсы с заработком.</p>
+                    <a href="student-job-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 6. Культурная адаптация -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">🌏</div>
+                    <h3>Культурный шок и адаптация</h3>
+                    <p>Как найти друзей, не обидеть одногруппников, понять иероглифы в кампусе.</p>
+                    <a href="student-culture-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Популярные кейсы (три примера) -->
+    <section class="featured-cases" style="background: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">⭐ Истории, которые спасут вас от ошибок</h2>
+            <div class="featured-grid">
+                <div class="featured-item">
+                    <span class="featured-tag">Виза</span>
+                    <h4>«Въехал по безвизовому режиму на 30 дней, а остался на 45 — заплатил штраф 10 000 юаней»</h4>
+                    <p>Как не пропустить дедлайн, куда идти и что говорить в миграционной службе.</p>
+                    <a href="students-visa-cases.html" class="small-link">Читать полностью →</a>
+                </div>
+                <div class="featured-item">
+                    <span class="featured-tag">Этикет</span>
+                    <h4>«Отказался от угощения — испортил отношения с китайцем»</h4>
+                    <p>Как правильно отказывать, не обижая</p>
+                    <a href="student-culture-cases.html" class="small-link">Читать полностью →</a>
+                </div>
+                <div class="featured-item">
+                    <span class="featured-tag">Учёба</span>
+                    <h4>«Провалил HSK 4 — что делать?»</h4>
+                    <p>План пересдачи, ресурсы для подготовки и как договориться о переносе сроков поступления.</p>
+                    <a href="student-hsk-failure-cases.html" class="small-link">Читать полностью →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ для студентов -->
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">❓ Частые вопросы студентов</h2>
+            <div class="faq-wrapper" style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Можно ли перевестись из одного китайского вуза в другой? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Да, но нужны согласие обоих вузов и новое приглашение на учёбу. При смене вуза придётся заново оформлять студенческую визу. В нашем кейсе «Как я перевёлся из Пекина в Шанхай» — пошаговая инструкция и образцы писем.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Нужно ли платить за общежитие, если я живу на каникулах в другом городе? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Обычно общежитие оплачивается за семестр независимо от проживания. Некоторые вузы делают скидку, если сдать комнату на каникулы. Читайте кейс «Как я сэкономил 2000 юаней на каникулах».</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Как легально подработать на студенческой визе? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">По закону работать по визе X1 можно только после получения разрешения (обычно через 1 год обучения). Но можно заниматься репетиторством русского или английского (неофициально, но осторожно). В разделе «Стажировки» есть кейс от студента, который легально устроился в стартап.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="privacy.html">Политика данных</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — гид, созданный энтузиастами. Вся информация обновляется.
+        </div>
+    </div>
+</footer>
+
+<script>
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    function toggleFaq(element) {
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== element) item.classList.remove('active');
+        });
+        element.classList.toggle('active');
+    }
+
+    const animateElements = document.querySelectorAll('.animate-up, .topic-card, .featured-item');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate-up, .topic-card, .featured-item').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        observer.observe(el);
+    });
+</script>
+</body>
+</html>

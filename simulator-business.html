@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Симулятор: Деловые переговоры в Китае — 3 уровня сложности</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e1e2f; line-height: 1.5; }
+        :root {
+            --china-red: #C41E3A;
+            --china-red-dark: #A01830;
+            --gold: #D4AF37;
+            --light-bg: #fef8f5;
+            --gray-text: #4a5568;
+            --border-light: #f0e2dc;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .navbar {
+            padding: 20px 0;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(4px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--china-red);
+            text-decoration: none;
+        }
+        .logo span { font-weight: 400; color: #2d2d3a; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #2d2d3a; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--china-red); }
+        .mobile-menu-btn { display: none; font-size: 1.6rem; background: none; border: none; cursor: pointer; }
+
+        .hero {
+            background: linear-gradient(135deg, #fffaf7 0%, #fff0ea 100%);
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 12px; }
+        .hero p { font-size: 1.1rem; color: var(--gray-text); max-width: 700px; margin: 0 auto; }
+
+        .level-selector {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+        .level-btn {
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f0f0f0;
+            color: #333;
+            transition: all 0.2s;
+        }
+        .level-btn.active {
+            background: var(--china-red);
+            color: white;
+        }
+        .level-btn[data-level="beginner"]:hover { background: #2e7d32; color: white; }
+        .level-btn[data-level="intermediate"]:hover { background: #f57c00; color: white; }
+        .level-btn[data-level="advanced"]:hover { background: #c62828; color: white; }
+
+        .simulator { padding: 20px 0 80px; }
+        .step-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .step-header {
+            background: #fef3ef;
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--china-red);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-header i { font-size: 1.3rem; color: var(--china-red); }
+        .step-desc {
+            padding: 20px 24px;
+            background: #f9f7f5;
+            font-size: 1rem;
+            border-bottom: 1px dashed var(--border-light);
+        }
+        .dialogue {
+            padding: 20px 24px;
+        }
+        .message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        .message.chinese { justify-content: flex-start; }
+        .message.player { justify-content: flex-end; }
+        .bubble {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 24px;
+            font-size: 1rem;
+        }
+        .chinese .bubble {
+            background: #f0f0f0;
+            border-bottom-left-radius: 4px;
+        }
+        .player .bubble {
+            background: var(--china-red);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .options {
+            margin: 16px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option-btn {
+            background: white;
+            border: 1px solid var(--border-light);
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .option-btn:hover {
+            background: #fff5f0;
+            border-color: var(--china-red);
+        }
+        .option-btn i { width: 24px; color: var(--china-red); }
+        .feedback {
+            margin: 0 24px 24px;
+            padding: 14px 18px;
+            border-radius: 20px;
+            background: #fff9e6;
+            border-left: 4px solid var(--gold);
+            font-size: 0.9rem;
+        }
+        .feedback.good { background: #e6f7e6; border-left-color: #2b7a3e; }
+        .feedback.bad { background: #ffe6e6; border-left-color: #c62828; }
+        .score-panel {
+            background: white;
+            border-radius: 60px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .restart-btn {
+            background: var(--china-red);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .result-box {
+            text-align: center;
+            padding: 30px;
+            background: var(--light-bg);
+            border-radius: 40px;
+        }
+        footer {
+            background: #1e1e2f;
+            color: #ccc;
+            padding: 48px 0 24px;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 1.8rem; }
+            .option-btn { font-size: 0.85rem; }
+            .bubble { max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="practice.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="container">
+        <h1>🤝 Симулятор: Деловые переговоры в Китае</h1>
+        <p>Вы — представитель компании. Вам предстоит встреча с китайскими партнёрами. Выбирайте правильные решения и набирайте очки.</p>
+    </div>
+    <div class="level-selector" id="levelSelector">
+        <button class="level-btn" data-level="beginner">🟢 Новичок (подсказки + перевод)</button>
+        <button class="level-btn" data-level="intermediate">🟡 Средний (пиньинь, без перевода)</button>
+        <button class="level-btn" data-level="advanced">🔴 Продвинутый (только иероглифы)</button>
+    </div>
+</div>
+
+<div class="simulator">
+    <div class="container">
+        <div id="simulatorApp"></div>
+        <div id="restartArea" style="text-align: center;"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+        <div class="copyright"><i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — деловые переговоры.</div>
+    </div>
+</footer>
+
+<script>
+    // Базовые сцены (без привязки к уровню)
+    const scenes = [
+        {
+            id: 0,
+            description: "Вы входите в переговорную. Китайские партнёры уже на месте. Вас представляют.",
+            chineseLine: {
+                beginner: "欢迎！请坐。这是我们公司的王总。 (Huānyíng! Qǐng zuò. Zhè shì wǒmen gōngsī de Wáng zǒng.) — Добро пожаловать! Садитесь, пожалуйста. Это наш генеральный директор Ван.",
+                intermediate: "欢迎！请坐。这是我们公司的王总。(Huānyíng! Qǐng zuò. Zhè shì wǒmen gōngsī de Wáng zǒng.)",
+                advanced: "欢迎！请坐。这是我们公司的王总。"
+            },
+            options: [
+                { 
+                    textBeginner: "Поклониться, вежливо поздороваться и представиться: 王总, 很高兴认识您。 (Wáng zǒng, hěn gāoxìng rènshi nín.) — Очень приятно познакомиться.",
+                    textIntermediate: "王总, 很高兴认识您。(Wáng zǒng, hěn gāoxìng rènshi nín.)",
+                    textAdvanced: "王总, 很高兴认识您。",
+                    points: 10,
+                    feedback: "Отлично! Вы выразили уважение к старшему по статусу. Использовали фамилию + должность."
+                },
+                {
+                    textBeginner: "Крепко пожать руку, похлопать по плечу и сказать: 你好 (Nǐ hǎo).",
+                    textIntermediate: "你好 (Nǐ hǎo)",
+                    textAdvanced: "你好",
+                    points: 3,
+                    feedback: "Слишком фамильярно для первого знакомства. В деловой среде Китая важна формальность и дистанция."
+                },
+                {
+                    textBeginner: "Промолчать и просто кивнуть.",
+                    textIntermediate: "Кивнуть",
+                    textAdvanced: "Кивнуть",
+                    points: 0,
+                    feedback: "Молчание воспринимается как незаинтересованность или неуважение. Нужно вербально представиться."
+                }
+            ],
+            nextScene: 1
+        },
+        {
+            id: 1,
+            description: "Начинается обсуждение сотрудничества. Китайская сторона предлагает чай и заводит беседу о погоде, семье.",
+            chineseLine: {
+                beginner: "您喝茶吗？ (Nín hē chá ma?) — Будете чай? Как прошла ваша поездка?",
+                intermediate: "您喝茶吗？ (Nín hē chá ma?) 您的行程顺利吗？",
+                advanced: "您喝茶吗？您的行程顺利吗？"
+            },
+            options: [
+                {
+                    textBeginner: "Вежливо отказаться от чая и сразу перейти к делу: «Давайте обсудим контракт».",
+                    textIntermediate: "直接讨论合同 (Zhíjiē tǎolùn hétong)",
+                    textAdvanced: "直接讨论合同",
+                    points: 2,
+                    feedback: "Слишком прямолинейно. В Китае принято сначала установить личный контакт, обменяться фразами о погоде, семье. Торопливость — признак неуважения."
+                },
+                {
+                    textBeginner: "Принять чай, поблагодарить (谢谢, xièxie), ответить на вопрос о поездке и немного расспросить о партнёрах.",
+                    textIntermediate: "谢谢, 我的旅行很棒。您公司最近怎么样？ (Xièxie, wǒ de lǚxíng hěn bàng. Nín gōngsī zuìjìn zěnme yàng?)",
+                    textAdvanced: "谢谢，我的旅行很棒。您公司最近怎么样？",
+                    points: 10,
+                    feedback: "Превосходно! Вы выстроили rapport (личную связь), что очень ценится в китайской деловой культуре."
+                },
+                {
+                    textBeginner: "Попросить только воду, не комментируя.",
+                    textIntermediate: "我要水 (Wǒ yào shuǐ)",
+                    textAdvanced: "我要水",
+                    points: 5,
+                    feedback: "Нормально, но вы упустили возможность показать свою открытость. Чай — знак гостеприимства."
+                }
+            ],
+            nextScene: 2
+        },
+        {
+            id: 2,
+            description: "Партнёр Ван предлагает вам обменяться визитными карточками.",
+            chineseLine: {
+                beginner: "我们可以交换名片吗？ (Wǒmen kěyǐ jiāohuàn míngpiàn ma?) — Можем обменяться визитками?",
+                intermediate: "我们可以交换名片吗？ (Wǒmen kěyǐ jiāohuàn míngpiàn ma?)",
+                advanced: "我们可以交换名片吗？"
+            },
+            options: [
+                {
+                    textBeginner: "Протянуть визитку одной рукой, сразу убрать полученную в карман.",
+                    textIntermediate: "Одна рука + убрать в карман",
+                    textAdvanced: "Одна рука и карман",
+                    points: 0,
+                    feedback: "Неправильно. Визитку вручают и принимают двумя руками. Нужно внимательно посмотреть на неё, положить на стол перед собой, не прятать сразу."
+                },
+                {
+                    textBeginner: "Вручить визитку двумя руками, повернув текст к партнёру. Принять его визитку двумя руками, прочитать и положить перед собой.",
+                    textIntermediate: "Двумя руками, прочитать, положить на стол.",
+                    textAdvanced: "То же (только иероглифы на визитке, но действие то же)",
+                    points: 10,
+                    feedback: "Идеально! Это один из главных правил делового этикета в Китае."
+                },
+                {
+                    textBeginner: "Сказать, что забыли визитки в номере.",
+                    textIntermediate: "Забыл визитки",
+                    textAdvanced: "忘带名片了",
+                    points: -5,
+                    feedback: "Партнёры сочтут вас неподготовленным. Всегда имейте визитки с собой."
+                }
+            ],
+            nextScene: 3
+        },
+        {
+            id: 3,
+            description: "Вы обсуждаете условия контракта. Китайская сторона уклоняется от прямых ответов, говорит общими фразами.",
+            chineseLine: {
+                beginner: "我们再研究一下。 (Wǒmen zài yánjiū yīxià.) — Мы ещё изучим этот вопрос. Возможно, позже.",
+                intermediate: "我们再研究一下。 (Wǒmen zài yánjiū yīxià.)",
+                advanced: "我们再研究一下。"
+            },
+            options: [
+                {
+                    textBeginner: "Настаивать на конкретном ответе, повторять вопрос несколько раз, давить.",
+                    textIntermediate: "Давить",
+                    textAdvanced: "施压",
+                    points: -5,
+                    feedback: "Давление и открытое требование немедленного ответа заставляют китайцев «терять лицо». Это разрушает переговоры."
+                },
+                {
+                    textBeginner: "Понять, что партнёрам нужно время. Ответить: «Конечно, мы подождём. Когда удобно будет продолжить?»",
+                    textIntermediate: "我们等。什么时候继续？(Wǒmen děng. Shénme shíhòu jìxù?)",
+                    textAdvanced: "我们等。什么时候继续？",
+                    points: 10,
+                    feedback: "Мудрое решение. Китайцы ценят терпение и не любят публичных конфликтов."
+                },
+                {
+                    textBeginner: "Предложить перерыв и кофе.",
+                    textIntermediate: "休息一下，喝咖啡？(Xiūxi yīxià, hē kāfēi?)",
+                    textAdvanced: "休息一下，喝咖啡？",
+                    points: 7,
+                    feedback: "Хорошая идея, но лучше не настаивать на смене темы. Лучше просто согласиться на отсрочку."
+                }
+            ],
+            nextScene: 4
+        },
+        {
+            id: 4,
+            description: "Наступает время обеда. Партнёры приглашают вас в ресторан.",
+            chineseLine: {
+                beginner: "我们一起去吃饭吧。 (Wǒmen yīqǐ qù chīfàn ba.) — Пойдёмте вместе пообедаем.",
+                intermediate: "我们一起去吃饭吧。",
+                advanced: "我们一起去吃饭吧。"
+            },
+            options: [
+                {
+                    textBeginner: "Согласиться, за обедом продолжать деловые разговоры, спрашивать о контракте.",
+                    textIntermediate: "За столом обсуждать бизнес",
+                    textAdvanced: "边吃边谈生意",
+                    points: 3,
+                    feedback: "В Китае обед — время для неформального общения. Обсуждать дела сразу считается дурным тоном. Сначала еда, тосты."
+                },
+                {
+                    textBeginner: "Отказаться, сказав, что вы заняты, и продолжить работать в отеле.",
+                    textIntermediate: "Отказать",
+                    textAdvanced: "拒绝邀请",
+                    points: -5,
+                    feedback: "Отказ от совместной трапезы сильно обидит партнёров. Это разрушит доверие."
+                },
+                {
+                    textBeginner: "Радушно принять приглашение, за обедом не касаться дел, произнести тост за сотрудничество.",
+                    textIntermediate: "Принять, тост за сотрудничество",
+                    textAdvanced: "接受，为合作干杯",
+                    points: 10,
+                    feedback: "Отлично! Вы демонстрируете понимание культуры и уважаете традиции."
+                }
+            ],
+            nextScene: 5
+        },
+        {
+            id: 5,
+            description: "После обеда вы возвращаетесь к переговорам. Партнёры дарят вам подарок — дорогой чай. По правилам этикета, что вы должны сделать?",
+            chineseLine: {
+                beginner: "这是我们的小小心意。请笑纳。 (Zhè shì wǒmen de xiǎo xiǎoxīnyì. Qǐng xiàonà.) — Это наш скромный подарок, примите, пожалуйста.",
+                intermediate: "这是我们的小小心意。请笑纳。",
+                advanced: "这是我们的小小心意。请笑纳。"
+            },
+            options: [
+                {
+                    textBeginner: "Сразу открыть подарок, громко выразить восторг.",
+                    textIntermediate: "Сразу открыть и восторгаться",
+                    textAdvanced: "马上拆开并赞扬",
+                    points: 0,
+                    feedback: "В Китае не принято открывать подарки сразу в присутствии дарителя. Это может смутить партнёра."
+                },
+                {
+                    textBeginner: "Вежливо поблагодарить, отложить подарок в сторону, не открывая. Позже открыть наедине.",
+                    textIntermediate: "Поблагодарить, отложить",
+                    textAdvanced: "感谢，放一边",
+                    points: 10,
+                    feedback: "Правильно! Так вы проявляете уважение к дарителю."
+                },
+                {
+                    textBeginner: "Отказаться от подарка, сказав, что это неудобно.",
+                    textIntermediate: "Отказаться",
+                    textAdvanced: "拒绝礼物",
+                    points: -5,
+                    feedback: "Отказ от подарка воспринимается как оскорбление. Всегда принимайте."
+                }
+            ],
+            nextScene: 6
+        },
+        {
+            id: 6,
+            description: "Переговоры подходят к концу. Партнёр Ван спрашивает, когда планируется подписание контракта.",
+            chineseLine: {
+                beginner: "您看我们什么时候签合同？ (Nín kàn wǒmen shénme shíhòu qiān hétong?) — Как вы считаете, когда подпишем контракт?",
+                intermediate: "您看我们什么时候签合同？",
+                advanced: "您看我们什么时候签合同？"
+            },
+            options: [
+                {
+                    textBeginner: "Назвать конкретную дату и время, настаивать.",
+                    textIntermediate: "Конкретная дата",
+                    textAdvanced: "具体日期",
+                    points: 5,
+                    feedback: "Это допустимо, но лучше проявить гибкость."
+                },
+                {
+                    textBeginner: "Сказать «как вам удобно», оставить инициативу партнёрам.",
+                    textIntermediate: "随您方便 (Suí nín fāngbiàn)",
+                    textAdvanced: "随您方便",
+                    points: 10,
+                    feedback: "Отлично! Так вы демонстрируете уважение и даёте партнёрам возможность выбрать наилучшее время."
+                },
+                {
+                    textBeginner: "Не отвечать, сменить тему.",
+                    textIntermediate: "Сменить тему",
+                    textAdvanced: "换话题",
+                    points: -2,
+                    feedback: "Уход от вопроса выглядит несерьёзно."
+                }
+            ],
+            nextScene: null // конец
+        }
+    ];
+
+    let currentLevel = localStorage.getItem('businessLevel') || 'beginner';
+    let currentSceneIndex = 0;
+    let totalPoints = 0;
+    let dialogueHistory = [];
+    let waiting = false;
+    let finished = false;
+
+    function getLocalizedText(obj) {
+        return obj[currentLevel] || obj.beginner;
+    }
+
+    function renderSimulator() {
+        const container = document.getElementById('simulatorApp');
+        if (finished) {
+            const maxPoints = 70; // сумма максимальных баллов за все шаги (10+10+10+10+10+10+10)
+            const percent = Math.round((totalPoints / maxPoints) * 100);
+            let message = '';
+            if (percent >= 85) message = 'Идеально! Вы блестяще провели переговоры. Партнёры впечатлены и готовы к долгосрочному сотрудничеству. 🏆';
+            else if (percent >= 70) message = 'Хороший результат! Вы допустили лишь небольшие ошибки. Стоит повторить этикет визиток и подарков.';
+            else if (percent >= 50) message = 'Вы справились, но некоторые моменты были неудачны. Рекомендуем изучить раздел «Деловой этикет».';
+            else message = 'Переговоры прошли напряжённо. Партнёры остались недовольны. Вам срочно нужно освоить китайский деловой этикет.';
+            container.innerHTML = `
+                <div class="result-box">
+                    <div class="score-panel" style="margin: 0 auto 20px;">Ваши очки: ${totalPoints} / ${maxPoints} (${percent}%)</div>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;">${message}</p>
+                    <button class="restart-btn" id="restartSim">Пройти переговоры заново</button>
+                </div>
+            `;
+            document.getElementById('restartArea').innerHTML = '';
+            document.getElementById('restartSim').addEventListener('click', () => resetSimulator());
+            return;
+        }
+
+        const scene = scenes[currentSceneIndex];
+        // История диалога
+        let historyHtml = '<div class="step-card" style="margin-bottom: 20px;"><div class="step-header"><i class="fas fa-history"></i> История</div><div class="dialogue">';
+        if (dialogueHistory.length === 0) historyHtml += '<p style="color: gray;">Пока нет сообщений.</p>';
+        else {
+            for (let msg of dialogueHistory) {
+                const alignClass = msg.role === 'chinese' ? 'chinese' : 'player';
+                const icon = msg.role === 'chinese' ? '🇨🇳' : '🧑';
+                historyHtml += `<div class="message ${alignClass}"><div class="bubble">${icon} ${msg.text}</div></div>`;
+            }
+        }
+        historyHtml += '</div></div>';
+
+        // Текущий шаг
+        let sceneHtml = `
+            <div class="step-card">
+                <div class="step-header"><i class="fas fa-comments"></i> Шаг ${currentSceneIndex+1} из ${scenes.length}</div>
+                <div class="step-desc"><i class="fas fa-info-circle"></i> ${scene.description}</div>
+                <div class="dialogue">
+                    <div class="message chinese">
+                        <div class="bubble">🇨🇳 ${getLocalizedText(scene.chineseLine)}</div>
+                    </div>
+                </div>
+                <div class="options" id="optionsArea"></div>
+                <div id="feedbackArea"></div>
+            </div>
+        `;
+        container.innerHTML = historyHtml + sceneHtml;
+
+        const optionsArea = document.getElementById('optionsArea');
+        scene.options.forEach((opt, idx) => {
+            const optText = getLocalizedText({ beginner: opt.textBeginner, intermediate: opt.textIntermediate, advanced: opt.textAdvanced });
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = `<i class="fas fa-hand-point-right"></i> ${optText}`;
+            btn.addEventListener('click', () => {
+                if (waiting) return;
+                waiting = true;
+                totalPoints += opt.points;
+                dialogueHistory.push({ role: 'player', text: optText });
+                const feedbackDiv = document.getElementById('feedbackArea');
+                const feedbackClass = opt.points >= 8 ? 'good' : (opt.points <= 0 ? 'bad' : '');
+                feedbackDiv.innerHTML = `<div class="feedback ${feedbackClass}"><strong>${opt.points >= 0 ? '✓' : '✗'}</strong> ${opt.feedback}</div>`;
+                // Заблокировать кнопки
+                document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+                setTimeout(() => {
+                    if (scene.nextScene !== null) {
+                        currentSceneIndex = scene.nextScene;
+                        waiting = false;
+                        renderSimulator();
+                    } else {
+                        finished = true;
+                        renderSimulator();
+                    }
+                }, 1800);
+            });
+            optionsArea.appendChild(btn);
+        });
+    }
+
+    function resetSimulator() {
+        currentSceneIndex = 0;
+        totalPoints = 0;
+        dialogueHistory = [];
+        waiting = false;
+        finished = false;
+        renderSimulator();
+    }
+
+    function setLevel(level) {
+        currentLevel = level;
+        localStorage.setItem('businessLevel', level);
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            if (btn.dataset.level === level) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        resetSimulator();
+    }
+
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.addEventListener('click', () => setLevel(btn.dataset.level));
+        if (btn.dataset.level === currentLevel) btn.classList.add('active');
+    });
+
+    renderSimulator();
+
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

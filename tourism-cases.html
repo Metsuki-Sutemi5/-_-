@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Кейсы для туристов — Секреты Поднебесной</title>
+    <link rel="stylesheet" href="style-tourism-cases.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#services">Главные разделы</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="tourism-cases.html" class="active">Кейсы туристам</a></li>
+            <li><a href="practice-index.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content animate-up">
+                <div class="hero-badge"><i class="fas fa-briefcase"></i> Разбор реальных ситуаций</div>
+                <h1>Кейсы туристов в Китае<span class="hero-highlight">: учимся на чужих ошибках</span></h1>
+                <p class="hero-desc">Типичные ловушки, курьёзы и полезный опыт русских путешественников. Каждый кейс — разбор ситуации, фразы и чёткие действия.</p>
+            </div>
+            <div class="hero-image animate-up delay-1">
+                <img src="./imgs/dragon.png" alt="Дракон">
+            </div>
+        </div>
+    </section>
+
+    <!-- Сетка тем-карточек -->
+    <section class="topics">
+        <div class="container">
+            <h2 class="section-title">Выберите тему</h2>
+            <p class="section-subtitle">Каждая тема содержит несколько кейсов с пошаговыми решениями</p>
+            <div class="topics-grid">
+                <!-- 1. Жильё -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">🏠</div>
+                    <h3>Бронирование жилья</h3>
+                    <p>Как не нарваться на мошенников на Ziroom, разница между Airbnb и местными платформами, что делать при отмене бронирования.</p>
+                    <a href="housing-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 2. Еда -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">🍜</div>
+                    <h3>Заказы еды</h3>
+                    <p>Как заказать через Meituan без китайского, что означают странные блюда, как попросить счёт и не потеряться в меню.</p>
+                    <a href="food-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 3. Такси и транспорт -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">🚖</div>
+                    <h3>Такси и транспорт</h3>
+                    <p>Почему Didi лучше уличного такси, как расплатиться и не переплатить, как пользоваться метро без языка.</p>
+                    <a href="taxi-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 4. Этикет и неловкие ситуации -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">🧧</div>
+                    <h3>Этикет и неловкости</h3>
+                    <p>Как не оскорбить китайцев жестом, почему нельзя ставить палочки вертикально, что дарить, а что табу.</p>
+                    <a href="etiquette-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 5. Экстренные случаи -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">🚨</div>
+                    <h3>Экстренные случаи</h3>
+                    <p>Потеря паспорта, кража, медицинская помощь, вызов полиции — что говорить и куда бежать.</p>
+                    <a href="emergency-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+                <!-- 6. Платежи и связь -->
+                <div class="topic-card hover-lift">
+                    <div class="topic-icon">💰</div>
+                    <h3>Платежи и связь</h3>
+                    <p>Как завести WeChat Pay, где купить SIM-карту, как вывести деньги с Alipay на карту.</p>
+                    <a href="payment-communication-cases.html" class="btn-topic">Смотреть кейсы →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Популярные кейсы (три примера с кратким описанием) -->
+    <section class="featured-cases" style="background: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">⭐ Самые читаемые кейсы</h2>
+            <div class="featured-grid">
+                <div class="featured-item">
+                    <span class="featured-tag">Жильё</span>
+                    <h4>«Хозяин выгнал за день до заезда»</h4>
+                    <p>Как вернуть деньги через платформу и найти ночлег в 2 часа ночи в Шанхае. Подробный алгоритм с фразами на китайском.</p>
+                    <a href="#" class="small-link">Читать полностью →</a>
+                </div>
+                <div class="featured-item">
+                    <span class="featured-tag">Еда</span>
+                    <h4>«Заказал свинину, хотя не ем»</h4>
+                    <p>Как правильно попросить еду без определённых ингредиентов и что делать, если принесли не то.</p>
+                    <a href="#" class="small-link">Читать полностью →</a>
+                </div>
+                <div class="featured-item">
+                    <span class="featured-tag">Транспорт</span>
+                    <h4>«Didi высадил посреди трассы»</h4>
+                    <p>Почему так произошло и как пользоваться функцией «добавить промежуточную точку».</p>
+                    <a href="#" class="small-link">Читать полностью →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ для туристов -->
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">❓ Частые вопросы туристов</h2>
+            <div class="faq-wrapper" style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Нужно ли распечатывать бронь отеля? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">В Китае чаще достаточно показать электронную версию на телефоне, но при регистрации в полиции (если вы живёте более 24 часов в одном месте) могут попросить бумажную копию. Лучше иметь при себе распечатку.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Как вызвать скорую, если не говорю по-китайски? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Наберите 120 и скажите «Wǒ xūyào bāngzhù» (мне нужна помощь) или используйте приложение-переводчик. В экстренных случаях лучше обратиться к сотрудникам отеля или полиции (110).</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Можно ли торговаться в магазинах? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">В сувенирных лавках, на рынках и в мелких магазинах торг уместен. В сетевых супермаркетах и торговых центрах цены фиксированные. Наша подборка фраз для торга есть в разделе «Практика».</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="privacy.html">Политика данных</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — гид, созданный энтузиастами. Вся информация обновляется.
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Мобильное меню
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // FAQ
+    function toggleFaq(element) {
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== element) item.classList.remove('active');
+        });
+        element.classList.toggle('active');
+    }
+
+    // Анимация при скролле
+    const animateElements = document.querySelectorAll('.animate-up, .topic-card, .featured-item');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate-up, .topic-card, .featured-item').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        observer.observe(el);
+    });
+</script>
+</body>
+</html>

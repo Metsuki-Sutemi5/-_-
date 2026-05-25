@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Секреты Поднебесной — главный гид по Китаю для русских</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Небольшие дополнения к существующим стилям (без конфликта с основным style.css) */
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #a5260c;
+            color: #a5260c;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 60px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-secondary:hover {
+            background: #a5260c;
+            color: white;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .translator-promo {
+            background: linear-gradient(135deg, #fff6f0 0%, #fefaf8 100%);
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            border: 1px solid #f0e2d8;
+        }
+        .translator-promo h4 {
+            color: #a5260c;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="#" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#services">Главные разделы</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="practice-index.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="translate.html" class="nav-translator"><i class="fas fa-language"></i> Переводчик</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero секция -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content animate-up">
+                <div class="hero-badge"><i class="fas fa-map-marked-alt"></i> Ваш навигатор по Китаю</div>
+                <h1>Секреты Поднебесной — <span class="hero-highlight">ключ к уверенной жизни и путешествиям</span> в Китае</h1>
+                <p class="hero-desc">Кейсы реальных людей, пошаговые инструкции и интерактивные тесты. Для туристов, студентов и бизнесменов. Всё, чтобы вы чувствовали себя как дома в Поднебесной.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="location.href='#services'">Начать исследовать <i class="fas fa-arrow-right"></i></button>
+                    <a href="translate.html" class="btn-secondary"><i class="fas fa-microphone-alt"></i> Переводчик с пиньинем</a>
+                </div>
+            </div>
+            <div class="hero-image animate-up delay-1">
+                <!-- Локальное изображение дракона -->
+                <img src="./imgs/dragon.png" alt="Китайский дракон — символ Поднебесной">
+            </div>
+        </div>
+    </section>
+
+    <!-- Три кита: Кейсы, Практика, Интерактив (ссылки-заглушки для будущих страниц) -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">📌 Как устроены «Секреты Поднебесной»</h2>
+            <p class="section-subtitle">Три главных раздела — каждый решает конкретную задачу</p>
+            <div class="grid-3">
+                <div class="service-card hover-lift animate-up">
+                    <div class="service-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <h3>Кейсы</h3>
+                    <p>Разбор реальных ситуаций: типичные ошибки, культурные ловушки и готовые фразы. Учимся на чужих провалах.</p>
+                    <div class="tag-list">
+                        <span class="tag">Виза逾期</span>
+                        <span class="tag">торг на рынке</span>
+                        <span class="tag">подарки начальству</span>
+                    </div>
+                    <a href="audience.html" class="btn-outline-card">Подробнее о кейсах →</a>
+                </div>
+                <div class="service-card hover-lift animate-up delay-1">
+                    <div class="service-icon"><i class="fas fa-list-check"></i></div>
+                    <h3>Практика</h3>
+                    <p>Пошаговые инструкции: где найти жильё, как купить SIM-карту, вызвать такси, перевести деньги и не потерять лицо.</p>
+                    <div class="tag-list">
+                        <span class="tag">WeChat Pay</span>
+                        <span class="tag">регистрация в полиции</span>
+                        <span class="tag">аренда квартиры</span>
+                    </div>
+                    <a href="practice-index.html" class="btn-outline-card">Все инструкции →</a>
+                </div>
+                <div class="service-card hover-lift animate-up delay-2">
+                    <div class="service-icon"><i class="fas fa-gamepad"></i></div>
+                    <h3>Интерактив</h3>
+                    <p>Короткие сценарии и тесты. Отработайте поведение до поездки — в диалогах и мини-играх.</p>
+                    <div class="tag-list">
+                        <span class="tag">симулятор ресторана</span>
+                        <span class="tag">диалог с хостесс</span>
+                        <span class="tag">этикет чаепития</span>
+                    </div>
+                    <a href="interactive.html" class="btn-outline-card">Игровой раздел →</a>
+                </div>
+            </div>
+            <!-- Виджет переводчика в разделе сервисов -->
+            <div class="translator-promo animate-up delay-3">
+                <h4><i class="fas fa-language"></i> Нужно быстро перевести фразу?</h4>
+                <p>Попробуйте наш <strong>онлайн-переводчик с пиньинем</strong> — иероглифы, транскрипция и озвучка за секунду.</p>
+                <a href="translate.html" class="btn-primary" style="background: #a5260c; padding: 0.7rem 1.5rem; font-size: 0.9rem;">Перейти к переводчику →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок для аудиторий -->
+    <section id="audience" style="background-color: #fefaf8;">
+        <div class="container">
+            <h2 class="section-title">Кому пригодятся секреты?</h2>
+            <p class="section-subtitle">Туристы, студенты, предприниматели — контент под каждую цель</p>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">🧳✈️</div>
+                    <h3>Туристам без гида</h3>
+                    <ul class="audience-list">
+                        <li><i class="fas fa-check-circle"></i> Фразы для метро, отеля, еды</li>
+                        <li><i class="fas fa-check-circle"></i> Как не потеряться и вызвать помощь</li>
+                        <li><i class="fas fa-check-circle"></i> Список must-see и правила очередей</li>
+                        <li><i class="fas fa-check-circle"></i> Что нельзя делать в храмах</li>
+                    </ul>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">📚🎓</div>
+                    <h3>Студентам (обмен, вузы)</h3>
+                    <ul class="audience-list">
+                        <li><i class="fas fa-check-circle"></i> Топ вузов: Пекин, Шанхай, Ханчжоу</li>
+                        <li><i class="fas fa-check-circle"></i> Оформление студенческой визы (X1/X2)</li>
+                        <li><i class="fas fa-check-circle"></i> Как снять комнату без посредника</li>
+                        <li><i class="fas fa-check-circle"></i> Экзамен HSK: лайфхаки</li>
+                    </ul>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">💼📈</div>
+                    <h3>Бизнес и работа</h3>
+                    <ul class="audience-list">
+                        <li><i class="fas fa-check-circle"></i> Правила выбора подарков и цвета</li>
+                        <li><i class="fas fa-check-circle"></i> Этикет деловых переговоров</li>
+                        <li><i class="fas fa-check-circle"></i> Как открыть WeChat Official Account</li>
+                        <li><i class="fas fa-check-circle"></i> Нюансы рабочей визы (Z)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Пример практики: пошаговая инструкция -->
+    <section id="practice-example">
+        <div class="container">
+            <h2 class="section-title">📖 Пошаговая инструкция из раздела «Практика»</h2>
+            <p class="section-subtitle">Как купить SIM-карту в Китае без знания китайского (реальный алгоритм)</p>
+            <div class="steps-example">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div><strong>Зайдите в магазин China Unicom / China Mobile</strong><br>Ищите вывески с красным логотипом. Готовьте паспорт.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div><strong>Покажите фразу на телефоне:</strong> «我想要一个预付费SIM卡» (Wǒ xiǎng yào yīge yùfùfèi SIM kǎ) — мне нужна предоплаченная сим-карта.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div><strong>Выберите тариф:</strong> дешевле всего 39-59 юаней/мес с 20-30 ГБ. Оплатите через Alipay или наличные.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div><strong>Активация через WeChat:</strong> сотрудник поможет отсканировать QR-код. Готово — вы на связи!</div>
+                </div>
+                <div class="tag-list" style="justify-content: flex-start; margin-top: 8px;">
+                    <span class="tag">⭐ Полезно: регистрируйте устройство в IMEI, если планируете жить >3 месяцев</span>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 32px; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="practice-index.html" class="btn-primary">Больше инструкций →</a>
+                <a href="translate.html" class="btn-secondary">🌐 Перевести фразу сейчас</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Интерактив - короткий тест (заглушка) -->
+    <section id="quiz" style="background: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">🎮 Интерактив: проверьте себя</h2>
+            <p class="section-subtitle">Короткие сценарии — отработайте поведение до поездки</p>
+            <div class="quiz-box" id="quizBlock">
+                <div class="quiz-question">🇨🇳 Вас пригласили на ужин к китайским партнёрам. Что будет правильным жестом благодарности?</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-correct="false">🫱 Крепкое рукопожатие и похлопывание по плечу</button>
+                    <button class="quiz-btn" data-correct="true">🙏 Слегка поклониться или поблагодарить двумя руками</button>
+                    <button class="quiz-btn" data-correct="false">🎁 Вручить подарок левой рукой сразу при входе</button>
+                </div>
+                <div class="quiz-feedback" id="quizFeedback"></div>
+                <div style="margin-top: 28px;">
+                    <a href="interactive.html" class="btn-outline-card">👉 Все тесты и сценарии</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">❓ Частые вопросы о жизни в Китае</h2>
+            <div class="faq-wrapper" style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Нужно ли знать китайский для поездки? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Базовые фразы очень помогут, но в крупных городах (Пекин, Шанхай, Шэньчжэнь) много указателей на английском и можно пользоваться переводчиками. Наш раздел «Практика» даёт готовые фразы на все случаи.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Как работает WeChat Pay для иностранца? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Для привязки карты нужен паспорт и китайский номер телефона. В нашем разделе «Кейсы» есть подробный гайд с картинками, как пройти верификацию.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Какие подарки нельзя дарить китайцам? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Часы (символ похорон), зонты (разлука), острые предметы (разрыв отношений), белые цветы, зелёные шляпы. Лучшие подарки — чай, фрукты, алкоголь премиум-класса.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Что делать при проблемах с законом или здоровьем? <span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Выучите фразу «我需要帮助» (нужна помощь) и позвоните 110 (полиция) или 120 (скорая). Всегда имейте копию паспорта и визы. Наши кейсы разбирают экстренные ситуации.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="translate.html">🌐 Переводчик</a>
+                <a href="privacy.html">Политика данных</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — гид, созданный энтузиастами. Вся информация обновляется.
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Мобильное меню
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // FAQ аккордеон
+    function toggleFaq(element) {
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== element) item.classList.remove('active');
+        });
+        element.classList.toggle('active');
+    }
+
+    // Интерактивный тест
+    const quizBtns = document.querySelectorAll('.quiz-btn');
+    const feedbackDiv = document.getElementById('quizFeedback');
+    if (quizBtns.length) {
+        quizBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isCorrect = btn.getAttribute('data-correct') === 'true';
+                if (isCorrect) {
+                    feedbackDiv.innerHTML = '✅ Верно! В Китае принято выражать благодарность двумя руками или лёгким поклоном — это знак уважения.';
+                    feedbackDiv.style.color = '#2b7a3e';
+                } else {
+                    feedbackDiv.innerHTML = '❌ Не совсем. Избегайте фамильярности. Правильный ответ: благодарить двумя руками или слегка поклониться.';
+                    feedbackDiv.style.color = '#C41E3A';
+                }
+            });
+        });
+    }
+
+    // Плавные анимации при скролле
+    const animateElements = document.querySelectorAll('.animate-up');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        observer.observe(el);
+    });
+</script>
+</body>
+</html>

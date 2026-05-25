@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика данных — Секреты Поднебесной</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fefaf8; color: #2c2b28; }
+        .navbar { background: #a5260c; padding: 1rem 0; color: white; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: white; text-decoration: none; }
+        .logo span { font-weight: 400; font-size: 0.9rem; opacity: 0.9; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; width: 100%; flex-direction: column; text-align: center; padding: 1rem 0; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+        }
+        .hero { background: linear-gradient(135deg, #fffaf7, #fff0ea); padding: 60px 0; text-align: center; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 16px; }
+        .hero p { font-size: 1.2rem; color: #5e6a6f; max-width: 700px; margin: 0 auto; }
+        .content { padding: 60px 0; background: white; }
+        .content h2 { font-size: 1.6rem; margin: 2rem 0 1rem; color: #a5260c; }
+        .content p, .content li { margin-bottom: 1rem; line-height: 1.6; }
+        .content ul { margin-left: 2rem; }
+        .last-updated { background: #fefaf8; padding: 0.5rem; border-radius: 20px; display: inline-block; font-size: 0.85rem; margin-bottom: 1rem; }
+        footer { background: #1e1e1e; color: #ccc; padding: 2rem 0; margin-top: 2rem; }
+        .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .footer-links a { color: #ccc; text-decoration: none; margin-right: 1.5rem; }
+        .copyright { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#services">Главные разделы</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="tourism-cases.html">Кейсы туристам</a></li>
+            <li><a href="students-cases.html">Кейсы студентам</a></li>
+            <li><a href="business-cases.html">Кейсы бизнесу</a></li>
+            <li><a href="translator.html">Переводчик</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>Политика обработки данных</h1>
+        <p>Как мы собираем, используем и защищаем вашу информацию</p>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container">
+        <div class="last-updated"><i class="fas fa-calendar-alt"></i> Последнее обновление: 15 мая 2026 года</div>
+        
+        <h2>1. Какие данные мы собираем</h2>
+        <p>При использовании нашего сайта мы можем получать:</p>
+        <ul>
+            <li><strong>Технические данные</strong> — IP-адрес, тип браузера, операционная система, время посещения (автоматически через логи сервера).</li>
+            <li><strong>Данные форм обратной связи</strong> — имя, email, текст сообщения (только если вы их оставляете добровольно).</li>
+            <li><strong>Файлы cookie</strong> — для работы переводчика, сохранения настроек языка, аналитики.</li>
+        </ul>
+        
+        <h2>2. Как мы используем эти данные</h2>
+        <p>Ваши данные нужны нам только для:</p>
+        <ul>
+            <li>Ответа на ваши вопросы через форму обратной связи.</li>
+            <li>Улучшения работы сайта и контента (анонимная статистика).</li>
+            <li>Обеспечения безопасности (защита от DDoS, спама).</li>
+        </ul>
+        <p>Мы никогда не продаём и не передаём ваши данные третьим лицам, кроме случаев, предусмотренных законом.</p>
+        
+        <h2>3. Файлы cookie и сторонние сервисы</h2>
+        <p>Сайт использует:</p>
+        <ul>
+            <li><strong>Essential cookies</strong> — для работы переводчика и хранения выбора языка (без них сайт может работать некорректно).</li>
+            <li><strong>Сторонние API</strong> — перевод осуществляется через открытое API MyMemory (текст передаётся на их сервер для перевода). Мы не контролируем их политику обработки данных.</li>
+            <li><strong>Синтез речи (Web Speech API)</strong> — вся обработка происходит в вашем браузере, ничего не уходит на сервер.</li>
+        </ul>
+        
+        <h2>4. Хранение данных и безопасность</h2>
+        <p>Все данные, которые вы вводите в форме обратной связи, хранятся в зашифрованном виде. Мы принимаем разумные меры для защиты от утечек, но абсолютной гарантии не даёт ни один сайт в интернете.</p>
+        
+        <h2>5. Ваши права</h2>
+        <p>Вы можете:</p>
+        <ul>
+            <li>Запросить удаление ваших данных из нашей базы (напишите на <a href="mailto:info@secretschina.ru">info@secretschina.ru</a>).</li>
+            <li>Отключить cookie в настройках браузера (но часть функций может перестать работать).</li>
+            <li>Не заполнять форму обратной связи — сайт работает и без неё.</li>
+        </ul>
+        
+        <h2>6. Изменения в политике</h2>
+        <p>Мы можем обновлять этот документ. Все изменения публикуются здесь с новой датой вверху страницы.</p>
+        
+        <h2>7. Контакты по вопросам данных</h2>
+        <p>По всем вопросам, связанным с обработкой персональных данных, пишите: <a href="mailto:privacy@secretschina.ru">privacy@secretschina.ru</a>.</p>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="privacy.html">Политика данных</a>
+            </div>
+        </div>
+        <div class="copyright">© 2025 «Секреты Поднебесной» — гид по Китаю для русских.</div>
+    </div>
+</footer>
+
+<script>
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (mobileBtn) mobileBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+</script>
+</body>
+</html>

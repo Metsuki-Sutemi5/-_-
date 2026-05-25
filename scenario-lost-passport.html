@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сценарий: Потеря паспорта в Китае — Секреты Поднебесной</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e1e2f; line-height: 1.5; }
+        :root {
+            --china-red: #C41E3A;
+            --china-red-dark: #A01830;
+            --gold: #D4AF37;
+            --light-bg: #fef8f5;
+            --gray-text: #4a5568;
+            --border-light: #f0e2dc;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .navbar {
+            padding: 20px 0;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(4px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--china-red);
+            text-decoration: none;
+        }
+        .logo span { font-weight: 400; color: #2d2d3a; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #2d2d3a; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--china-red); }
+        .mobile-menu-btn { display: none; font-size: 1.6rem; background: none; border: none; cursor: pointer; }
+
+        .sim-hero {
+            background: linear-gradient(135deg, #fffaf7 0%, #fff0ea 100%);
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+        .sim-hero h1 { font-size: 2.5rem; margin-bottom: 12px; }
+        .sim-hero p { font-size: 1.1rem; color: var(--gray-text); }
+
+        .scenario-container {
+            padding: 40px 0 80px;
+        }
+        .step-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .step-header {
+            background: #fef3ef;
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--china-red);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-header i { font-size: 1.3rem; color: var(--china-red); }
+        .step-desc {
+            padding: 20px 24px;
+            background: #f9f7f5;
+            font-size: 1.1rem;
+            border-bottom: 1px dashed var(--border-light);
+        }
+        .options {
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option-btn {
+            background: white;
+            border: 1px solid var(--border-light);
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .option-btn:hover {
+            background: #fff5f0;
+            border-color: var(--china-red);
+        }
+        .option-btn i {
+            width: 24px;
+            color: var(--china-red);
+        }
+        .feedback {
+            margin: 16px 24px 24px;
+            padding: 14px 18px;
+            border-radius: 20px;
+            background: #fff9e6;
+            border-left: 4px solid var(--gold);
+            font-size: 0.95rem;
+        }
+        .feedback.good { background: #e6f7e6; border-left-color: #2b7a3e; }
+        .feedback.bad { background: #ffe6e6; border-left-color: #c62828; }
+        .score-panel {
+            background: white;
+            border-radius: 60px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .restart-btn {
+            background: var(--china-red);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .result-box {
+            text-align: center;
+            padding: 30px;
+            background: var(--light-bg);
+            border-radius: 40px;
+        }
+        footer {
+            background: #1e1e2f;
+            color: #ccc;
+            padding: 48px 0 24px;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .sim-hero h1 { font-size: 1.8rem; }
+            .option-btn { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="practice.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="sim-hero">
+    <div class="container">
+        <h1>🛂 Сценарий: потеря паспорта в Китае</h1>
+        <p>Вы в Пекине. За 2 дня до вылета обнаруживаете, что паспорт исчез. Принимайте решения — каждое влияет на исход.</p>
+    </div>
+</div>
+
+<div class="scenario-container">
+    <div class="container">
+        <div id="scenarioApp"></div>
+        <div id="restartArea" style="text-align: center;"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+        <div class="copyright"><i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — сценарий потеря паспорта.</div>
+    </div>
+</footer>
+
+<script>
+    // Сценарий с неоднозначными вариантами, правильные перемешаны
+    const nodes = {
+        0: {
+            text: "Вы готовитесь к вылету через 2 дня. Вечером проверяете документы — паспорта нет. Последний раз вы его видели вчера, когда заселялись в отель. Ваши действия?",
+            options: [
+                { text: "Срочно позвонить в аэропорт и узнать, можно ли вылететь по ксерокопии", next: 3, points: -2, feedback: "Авиакомпания потребует оригинал, звонок в аэропорт бесполезен." },
+                { text: "Обратиться в полицию (110) для получения официальной справки об утере", next: 5, points: 10, feedback: "Отлично! Справка полиции — первый и важнейший шаг." },
+                { text: "Написать в чат русскоязычного сообщества в WeChat, возможно, кто-то нашёл паспорт", next: 4, points: 5, feedback: "Это полезно, но не заменяет официальных действий. Нужно идти в полицию." },
+                { text: "Обзвонить все места, где были вчера (отель, ресторан, магазин)", next: 1, points: 8, feedback: "Хорошее начало, но полицию стоит задействовать параллельно." }
+            ]
+        },
+        1: {
+            text: "Вы обзвонили отель, ресторан и магазин — паспорт нигде не нашли. Что дальше?",
+            options: [
+                { text: "Поехать в посольство РФ напрямую, без справки из полиции", next: 6, points: -3, feedback: "Консульство запросит справку об утере, без неё не примут." },
+                { text: "Подать заявление в полицию через онлайн-сервис", next: 5, points: 8, feedback: "В Китае онлайн-заявление возможно, но лучше прийти лично — быстрее." },
+                { text: "Сделать ксерокопию паспорта с телефона и попытаться зарегистрироваться на рейс онлайн", next: 9, points: -5, feedback: "Онлайн-регистрация не поможет, паспорт проверяют в аэропорту." },
+                { text: "Начать искать посольство в интернете и готовить документы для восстановления", next: 6, points: 5, feedback: "Хорошо, но без справки полиции не обойтись." }
+            ]
+        },
+        2: {
+            text: "Вы решили сразу ехать в международный аэропорт и объяснять ситуацию. В аэропорту вас направили в полицию. До вылета 36 часов.",
+            options: [
+                { text: "Послушаться и поехать в полицейский участок", next: 5, points: 8, feedback: "Правильно, полиция выдаст справку." },
+                { text: "Остаться в аэропорту и искать сотрудника авиакомпании, который сжалится", next: 3, points: -10, feedback: "Без документа вас не посадят." }
+            ]
+        },
+        3: {
+            text: "Авиакомпания подтвердила, что без оригинала паспорта посадка невозможна. Вы потеряли несколько часов. Что теперь?",
+            options: [
+                { text: "Немедленно ехать в полицию", next: 5, points: 8, feedback: "Лучше поздно, чем никогда." },
+                { text: "Вернуться в отель и искать паспорт в номере", next: 8, points: -5, feedback: "Вы уже искали, маловероятно." }
+            ]
+        },
+        4: {
+            text: "В чате вам посоветовали сначала обратиться в полицию. Вы решили последовать совету.",
+            options: [
+                { text: "Позвонить 110", next: 5, points: 10, feedback: "Верно." },
+                { text: "Игнорировать и попробовать найти паспорт самостоятельно ещё сутки", next: 8, points: -10, feedback: "Шансы найти крайне малы." }
+            ]
+        },
+        5: {
+            text: "Вы обратились в полицию (110). Приехал патруль, сняли показания, выдали справку о потере паспорта на китайском и английском. Что дальше?",
+            options: [
+                { text: "Немедленно ехать в консульство РФ (в Пекине)", next: 7, points: 10, feedback: "Правильно, справка готова." },
+                { text: "Попытаться вылететь по справке в аэропорту", next: 9, points: -10, feedback: "Справка не заменяет паспорт для вылета." },
+                { text: "Опубликовать фото справки в соцсетях и ждать чуда", next: 8, points: -5, feedback: "Бесполезно, нужно ехать в консульство." },
+                { text: "Позвонить в консульство и уточнить часы приёма", next: 6, points: 5, feedback: "Это полезно, но лучше ехать сразу с документами." }
+            ]
+        },
+        6: {
+            text: "Вы связались с консульством. Там попросили справку из полиции (у вас её пока нет). Вы решаете...",
+            options: [
+                { text: "Сначала получить справку в полиции", next: 5, points: 10, feedback: "Верно, теперь вы на верном пути." },
+                { text: "Уговорить консульство принять без справки, объяснив форс-мажор", next: 8, points: -8, feedback: "Не получится." },
+                { text: "Написать в посольство РФ в Москве, чтобы прислали дубликат по электронной почте", next: 9, points: -5, feedback: "Так не делают, нужен личный визит." }
+            ]
+        },
+        7: {
+            text: "Вы в консульстве РФ. Предъявили справку из полиции. У вас есть копии паспорта и визы (в телефоне или бумажные)?",
+            options: [
+                { text: "Да, у меня есть копии в телефоне и бумажные", next: 10, points: 15, feedback: "Отлично! Копии значительно ускоряют процесс." },
+                { text: "Нет, копий нет, только справка", next: 11, points: 5, feedback: "Консульство запросит данные из Москвы, это займёт больше времени." }
+            ]
+        },
+        8: {
+            text: "Вы ничего не предпринимали или действовали неверно. Время упущено. День вылета настал, паспорта нет. Вас сняли с рейса. Что теперь?",
+            options: [
+                { text: "Срочно идти в полицию и консульство, но уже поздно", next: 12, points: -5, feedback: "Лучше поздно, чем никогда, но билет потерян." },
+                { text: "Остаться в Китае нелегально и попытаться найти чёрных посредников", next: 13, points: -20, feedback: "Нелегальное проживание грозит депортацией и штрафом." }
+            ]
+        },
+        9: {
+            text: "Попытка вылететь без паспорта провалилась. Вы потеряли билет. Теперь нужно восстанавливать документы.",
+            options: [
+                { text: "Иду в полицию за справкой", next: 5, points: 5, feedback: "Теперь вы на верном пути, но билет уже пропал." },
+                { text: "Покупаю новый билет на завтра и надеюсь найти паспорт", next: 8, points: -10, feedback: "Без действий паспорт не появится." }
+            ]
+        },
+        10: {
+            text: "Благодаря копиям консульство быстро оформило «Свидетельство на возвращение в РФ» (одноразовый заменяющий документ). Вы успеваете на рейс!",
+            options: [],
+            end: true,
+            finalScore: 95,
+            finalMessage: "Вы отлично справились! Документы восстановлены, вы вылетели вовремя. Ваши действия были эффективными и правильными."
+        },
+        11: {
+            text: "Консульство запросило данные из Москвы, процесс занял больше времени. Вы опоздали на рейс, но получили свидетельство на следующий день и улетели позже.",
+            options: [],
+            end: true,
+            finalScore: 70,
+            finalMessage: "Вы справились, но без копий паспорта потеряли время и билет. В следующий раз храните копии отдельно."
+        },
+        12: {
+            text: "Вы всё же получили справку и свидетельство, но уже после даты вылета. Пришлось покупать новый билет. Опыт дорогой, но вы вылетели.",
+            options: [],
+            end: true,
+            finalScore: 50,
+            finalMessage: "Вы вылетели, но потеряли деньги и нервы. Важно не паниковать и действовать по плану: полиция → консульство."
+        },
+        13: {
+            text: "Вы остались без документов в Китае. Вас задержала полиция, депортировали с запретом на въезд. Очень плохой исход.",
+            options: [],
+            end: true,
+            finalScore: 0,
+            finalMessage: "К сожалению, это худший вариант. Всегда обращайтесь в полицию и консульство."
+        }
+    };
+
+    let currentNodeId = 0;
+    let totalScore = 0;
+    let history = [];
+    let finished = false;
+
+    function renderScenario() {
+        const container = document.getElementById('scenarioApp');
+        if (finished) {
+            const finalNode = nodes[currentNodeId];
+            const score = finalNode.finalScore;
+            const message = finalNode.finalMessage;
+            let advice = '';
+            if (score >= 90) advice = '🏆 Вы действовали как профессионал!';
+            else if (score >= 70) advice = '👍 Хороший результат, но есть что улучшить.';
+            else if (score >= 40) advice = '⚠️ Вы справились, но допустили ошибки. Изучите наши кейсы.';
+            else advice = '❌ Ошибки стоили вам дорого. Пройдите сценарий ещё раз и запомните порядок действий.';
+            
+            container.innerHTML = `
+                <div class="result-box">
+                    <div class="score-panel" style="margin: 0 auto 20px;">Ваш итоговый счёт: ${score} / 100</div>
+                    <p style="font-size: 1.2rem; margin-bottom: 20px;">${message}</p>
+                    <p>${advice}</p>
+                    <button class="restart-btn" id="restartScenario">🔁 Пройти сценарий заново</button>
+                </div>
+            `;
+            document.getElementById('restartArea').innerHTML = '';
+            document.getElementById('restartScenario').addEventListener('click', () => { resetScenario(); });
+            return;
+        }
+
+        const node = nodes[currentNodeId];
+        let historyHtml = '';
+        if (history.length > 0) {
+            historyHtml = '<div class="step-card" style="margin-bottom: 20px;"><div class="step-header"><i class="fas fa-history"></i> История ваших действий</div><div class="step-desc" style="background: #fafafa;">';
+            for (let h of history) {
+                historyHtml += `<p>• ${h}</p>`;
+            }
+            historyHtml += '</div></div>';
+        }
+        
+        let optionsHtml = '';
+        if (node.options && node.options.length > 0) {
+            // Перемешиваем порядок опций для непредсказуемости (но в реальности они уже перемешаны в данных)
+            const shuffled = [...node.options];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            optionsHtml = '<div class="options">';
+            shuffled.forEach((opt, idx) => {
+                optionsHtml += `
+                    <button class="option-btn" data-opt-text="${opt.text.replace(/"/g, '&quot;')}" data-opt-next="${opt.next}" data-opt-points="${opt.points}" data-opt-feedback="${opt.feedback.replace(/"/g, '&quot;')}">
+                        <i class="fas fa-hand-point-right"></i> ${opt.text}
+                    </button>
+                `;
+            });
+            optionsHtml += '</div>';
+        } else if (!node.end) {
+            optionsHtml = '<div class="options"><button class="restart-btn" id="forceRestart">Перезапустить</button></div>';
+        }
+        
+        container.innerHTML = `
+            <div class="step-card">
+                <div class="step-header"><i class="fas fa-exclamation-triangle"></i> Шаг ${Object.keys(nodes).indexOf(currentNodeId.toString())+1}</div>
+                <div class="step-desc">${node.text}</div>
+                ${optionsHtml}
+                <div id="feedbackMsg" style="margin: 0 24px 24px;"></div>
+            </div>
+        `;
+        
+        if (node.options && node.options.length > 0) {
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const nextId = parseInt(btn.dataset.optNext);
+                    const points = parseInt(btn.dataset.optPoints);
+                    const feedbackText = btn.dataset.optFeedback;
+                    const chosenText = btn.dataset.optText;
+                    
+                    const feedbackDiv = document.getElementById('feedbackMsg');
+                    const feedbackClass = points >= 5 ? 'good' : (points < 0 ? 'bad' : '');
+                    feedbackDiv.innerHTML = `<div class="feedback ${feedbackClass}"><strong>${points >= 0 ? '✓' : '✗'}</strong> ${feedbackText}</div>`;
+                    totalScore += points;
+                    history.push(chosenText);
+                    currentNodeId = nextId;
+                    
+                    btns.forEach(b => b.disabled = true);
+                    
+                    if (nodes[currentNodeId] && nodes[currentNodeId].end) {
+                        finished = true;
+                        setTimeout(() => renderScenario(), 1000);
+                    } else if (nodes[currentNodeId]) {
+                        setTimeout(() => renderScenario(), 1000);
+                    } else {
+                        finished = true;
+                        renderScenario();
+                    }
+                });
+            });
+        } else if (node.end) {
+            finished = true;
+            renderScenario();
+        }
+        
+        document.getElementById('restartArea').innerHTML = `<button class="restart-btn" id="manualRestart">↺ Начать сначала</button>`;
+        const restartBtn = document.getElementById('manualRestart');
+        if (restartBtn) restartBtn.addEventListener('click', () => resetScenario());
+    }
+    
+    function resetScenario() {
+        currentNodeId = 0;
+        totalScore = 0;
+        history = [];
+        finished = false;
+        renderScenario();
+    }
+    
+    renderScenario();
+    
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

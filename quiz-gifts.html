@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест: Что подарить китайцу? — Секреты Поднебесной</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e1e2f; line-height: 1.5; }
+        :root {
+            --china-red: #C41E3A;
+            --china-red-dark: #A01830;
+            --gold: #D4AF37;
+            --light-bg: #fef8f5;
+            --gray-text: #4a5568;
+            --border-light: #f0e2dc;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .navbar {
+            padding: 20px 0;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(4px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--china-red);
+            text-decoration: none;
+        }
+        .logo span { font-weight: 400; color: #2d2d3a; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #2d2d3a; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--china-red); }
+        .mobile-menu-btn { display: none; font-size: 1.6rem; background: none; border: none; cursor: pointer; }
+
+        .hero {
+            background: linear-gradient(135deg, #fffaf7 0%, #fff0ea 100%);
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 12px; }
+        .hero p { font-size: 1.1rem; color: var(--gray-text); max-width: 700px; margin: 0 auto; }
+
+        .quiz-container { padding: 40px 0 80px; }
+        .quiz-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        .question-header {
+            background: #fef3ef;
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--china-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .question-num {
+            font-weight: 700;
+            color: var(--china-red);
+            background: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+        }
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 20px 24px;
+        }
+        .options {
+            padding: 0 24px 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 18px;
+            border-radius: 60px;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .option:hover { background: #fff5f0; border-color: var(--china-red); }
+        .option input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--china-red); }
+        .option label { flex: 1; cursor: pointer; font-weight: 500; }
+        .explanation {
+            margin: 0 24px 24px;
+            padding: 16px 20px;
+            border-radius: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid var(--gold);
+            display: none;
+        }
+        .explanation.show { display: block; }
+        .explanation.correct { background: #e6f7e6; border-left-color: #2b7a3e; }
+        .explanation.wrong { background: #ffe6e6; border-left-color: #c62828; }
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .btn-primary {
+            background: var(--china-red);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { background: var(--china-red-dark); transform: scale(1.02); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--china-red);
+            color: var(--china-red);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .result-box {
+            background: var(--light-bg);
+            border-radius: 32px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .result-score { font-size: 2.8rem; font-weight: 800; color: var(--china-red); }
+        .progress-bar { height: 10px; background: #eee; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--china-red); width: 0%; transition: width 0.3s; }
+        footer {
+            background: #1e1e2f;
+            color: #ccc;
+            padding: 48px 0 24px;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 1.8rem; }
+            .question-text { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="practice.html">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="container">
+        <h1>🎁 Тест: Что подарить китайцу?</h1>
+        <p>Цвета, числа, предметы и ситуации — проверьте, сможете ли вы выбрать безупречный подарок и не навлечь беду.</p>
+    </div>
+</div>
+
+<div class="quiz-container">
+    <div class="container">
+        <div id="quizApp"></div>
+        <div class="quiz-footer" id="quizFooter" style="display: none;">
+            <button class="btn-primary" id="submitQuiz">Завершить тест и узнать результат</button>
+            <button class="btn-outline" id="resetQuiz">Пройти заново</button>
+        </div>
+        <div id="resultArea"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+        </div>
+        <div class="copyright"><i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — тест о подарках.</div>
+    </div>
+</footer>
+
+<script>
+    const questions = [
+        {
+            text: "Какой цвет упаковки подарка считается самым благоприятным в Китае?",
+            options: [
+                "Белый", "Красный", "Чёрный", "Голубой"
+            ],
+            correct: 1,
+            explanation: "Красный — цвет удачи, счастья и процветания. Белый и чёрный — траурные, их избегают в праздничных подарках."
+        },
+        {
+            text: "Ваш китайский коллега пригласил на свадьбу. Что лучше подарить?",
+            options: [
+                "Конверт с деньгами",
+                "Набор из 4 чашек (символ семьи)",
+                "Белый букет лилий",
+                "Живопись"
+            ],
+            correct: 0,
+            explanation: "Красный конверт с деньгами — стандартный свадебный подарок. Сумма должна быть чётной, не кратной 4. Часы — плохая примета (похороны). Белые цветы — траур."
+        },
+        {
+            text: "Почему нельзя дарить часы в Китае?",
+            options: [
+                "Они напоминают о быстротечности времени",
+                "Фраза «дарить часы» звучит как «провожать в последний путь»",
+                "Часы считаются личным предметом",
+                "Они приносят разлуку"
+            ],
+            correct: 1,
+            explanation: "«Дарить часы» — 送钟 (sòng zhōng), созвучно «провожать в последний путь» (送终). Очень плохая примета."
+        },
+        {
+            text: "Вы идёте в гости к китайской семье. Какой подарок будет наиболее уместен?",
+            options: [
+                "Бутылка дорогого вина",
+                "Чай высокого сорта в красивой упаковке",
+                "Ножницы",
+                "Игрушечную белую лошадь"
+            ],
+            correct: 1,
+            explanation: "Чай — традиционный и безопасный подарок. Острые предметы (ножи, ножницы) символизируют разрыв отношений. Белая лошадь — может быть неоднозначно."
+        },
+        {
+            text: "Какое число денег в красном конверте считается НЕудачным?",
+            options: [
+                "200 юаней", "500 юаней", "400 юаней", "666 юаней"
+            ],
+            correct: 2,
+            explanation: "Число 4 (и кратные ему) избегают, так как оно созвучно «смерти». 200 — удачное, 500 — нейтральное, 666 — очень удачное (символ гладкости, удачи)."
+        },
+        {
+            text: "Что символизирует чёрный цвет в китайской культуре подарков?",
+            options: [
+                "Богатство", "Смерть и траур", "Мудрость", "Власть"
+            ],
+            correct: 1,
+            explanation: "Чёрный, как и белый, — траурный цвет. Чёрные подарки неуместны на праздниках."
+        },
+        {
+            text: "Вам нужно поздравить китайского бизнес-партнёра с открытием нового офиса. Какой подарок лучше выбрать?",
+            options: [
+                "Золотую статую черепахи (символ долголетия)",
+                "Денежное дерево в горшке",
+                "Красный конверт с суммой 888 юаней",
+                "Зелёную шляпу"
+            ],
+            correct: 2,
+            explanation: "Красный конверт с деньгами — универсальный подарок на открытие. Число 888 очень удачное (процветание). Зелёная шляпа — намёк на измену, черепаха — двусмысленно (бывает и обзывательство)."
+        },
+        {
+            text: "Почему нельзя дарить зонт в Китае?",
+            options: [
+                "Он напоминает о дождливой погоде",
+                "Слово «зонт» созвучно «разлуке»",
+                "Зонт символизирует несчастье",
+                "Это символ нищеты"
+            ],
+            correct: 1,
+            explanation: "Зонт (伞, sǎn) созвучно со словом «разлука» (散, sàn). Может быть воспринято как пожелание расстаться."
+        },
+        {
+            text: "Вы приглашены на день рождения пожилого человека. Что подарить?",
+            options: [
+                "Иероглиф «寿» (shòu)",
+                "Белые хризантемы",
+                "Набор для чайной церемонии",
+                "Красный свитер"
+            ],
+            correct: 0,
+            explanation: "Иероглиф «寿» (shòu) (долголетие) — лучший подарок пожилым. Белые хризантемы — на похороны. Остальные варианты допустимы, но иероглиф — классика."
+        },
+        {
+            text: "Какой подарок считается оскорбительным для молодожёнов?",
+            options: [
+                "Черный конверт с деньгами",
+                "Пару голубей",
+                "Картину с изображением пионов",
+                "Набор ножей"
+            ],
+            correct: 3,
+            explanation: "Острые предметы (ножи, ножницы) символизируют разрыв и ссоры. Их дарят только с особыми условиями (обмен на монетку)."
+        },
+        {
+            text: "Можно ли дарить китайцу товары, сделанные в Китае, если вы иностранец?",
+            options: [
+                "Да, это хороший подарок",
+                "Нет, это оскорбительно, нужно везти что-то из своей страны",
+                "Только если это премиум-бренд",
+                "Только если это традиционный фарфор"
+            ],
+            correct: 0,
+            explanation: "Китайцы ценят качественный товар независимо от страны производства. Но сувенир из вашей страны будет более экзотичным и памятным. Однако сам по себе китайский товар не оскорбителен."
+        },
+        {
+            text: "Вы хотите подарить китайскому другу фрукты. Каких фруктов лучше избегать из-за негативного значения?",
+            options: [
+                "Яблоки (苹果, píngguǒ)",
+                "Апельсины (橘子, júzi)",
+                "Груши (梨, lí)",
+                "Виноград (葡萄, pútao)"
+            ],
+            correct: 2,
+            explanation: "Груша (梨, lí) созвучна слову «разлука», «расставание» (离, lí). Дарить груши — желать разрыва отношений. Яблоки — мир, апельсины — богатство, виноград — плодородие."
+        }
+    ];
+
+    let userAnswers = new Array(questions.length).fill(null);
+    let quizSubmitted = false;
+
+    function renderQuiz() {
+        const app = document.getElementById('quizApp');
+        app.innerHTML = '';
+        questions.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            card.setAttribute('data-qidx', idx);
+            
+            const header = document.createElement('div');
+            header.className = 'question-header';
+            header.innerHTML = `<span class="question-num">Вопрос ${idx+1} из ${questions.length}</span>`;
+            
+            const qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerText = q.text;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+            q.options.forEach((opt, optIdx) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                const radioId = `q${idx}_opt${optIdx}`;
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${idx}`;
+                radio.value = optIdx;
+                radio.id = radioId;
+                if (userAnswers[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', (e) => {
+                    if (quizSubmitted) return;
+                    userAnswers[idx] = parseInt(e.target.value);
+                    const explDiv = card.querySelector('.explanation');
+                    if (explDiv) explDiv.classList.remove('show');
+                });
+                const label = document.createElement('label');
+                label.htmlFor = radioId;
+                label.innerText = opt;
+                optionDiv.appendChild(radio);
+                optionDiv.appendChild(label);
+                optionsDiv.appendChild(optionDiv);
+            });
+            
+            card.appendChild(header);
+            card.appendChild(qText);
+            card.appendChild(optionsDiv);
+            
+            const explDiv = document.createElement('div');
+            explDiv.className = 'explanation';
+            explDiv.innerHTML = `<strong><i class="fas fa-info-circle"></i> Пояснение:</strong> ${q.explanation}`;
+            card.appendChild(explDiv);
+            
+            app.appendChild(card);
+        });
+        
+        const footer = document.getElementById('quizFooter');
+        footer.style.display = 'flex';
+        const resultDiv = document.getElementById('resultArea');
+        resultDiv.innerHTML = '';
+        quizSubmitted = false;
+    }
+
+    function showResults() {
+        let unanswered = [];
+        for (let i = 0; i < questions.length; i++) {
+            if (userAnswers[i] === null) unanswered.push(i+1);
+        }
+        if (unanswered.length > 0) {
+            alert(`Вы не ответили на вопросы №${unanswered.join(', ')}. Ответьте на все.`);
+            return;
+        }
+        
+        quizSubmitted = true;
+        let score = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (userAnswers[i] === questions[i].correct) score++;
+            const card = document.querySelector(`.quiz-card[data-qidx="${i}"]`);
+            const explDiv = card.querySelector('.explanation');
+            explDiv.classList.add('show');
+            if (userAnswers[i] === questions[i].correct) {
+                explDiv.classList.add('correct');
+                explDiv.classList.remove('wrong');
+                explDiv.innerHTML = `<strong><i class="fas fa-check-circle"></i> Верно!</strong><br>${questions[i].explanation}`;
+            } else {
+                explDiv.classList.add('wrong');
+                explDiv.classList.remove('correct');
+                const correctAnswerText = questions[i].options[questions[i].correct];
+                explDiv.innerHTML = `<strong><i class="fas fa-times-circle"></i> Неправильно.</strong><br>Правильный ответ: "${correctAnswerText}".<br><strong>Пояснение:</strong> ${questions[i].explanation}`;
+            }
+        }
+        
+        const percent = Math.round((score / questions.length) * 100);
+        let message = '';
+        if (percent >= 85) message = 'Превосходно! Вы настоящий знаток китайского этикета подарков. Ваши подарки всегда будут уместны и желанны.';
+        else if (percent >= 65) message = 'Хороший результат, но есть нюансы, которые стоит запомнить. Пройдите тест ещё раз, чтобы закрепить.';
+        else if (percent >= 40) message = 'Неплохо, но вы рискуете попасть в неловкую ситуацию. Изучите раздел о подарках на нашем сайте.';
+        else message = 'К сожалению, вы совсем не знакомы с правилами дарения в Китае. Рекомендуем внимательно изучить материалы, чтобы никого не обидеть.';
+        
+        const resultDiv = document.getElementById('resultArea');
+        resultDiv.innerHTML = `
+            <div class="result-box">
+                <div class="result-score">${score} / ${questions.length}</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: ${percent}%;"></div></div>
+                <p><strong>${percent}% правильных ответов</strong></p>
+                <p>${message}</p>
+                <button class="btn-primary" id="retakeQuiz">Пройти тест заново</button>
+            </div>
+        `;
+        document.getElementById('retakeQuiz').addEventListener('click', () => {
+            resetQuiz();
+        });
+        document.getElementById('quizFooter').style.display = 'none';
+    }
+    
+    function resetQuiz() {
+        userAnswers.fill(null);
+        quizSubmitted = false;
+        renderQuiz();
+        document.getElementById('resultArea').innerHTML = '';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    renderQuiz();
+    document.getElementById('submitQuiz').addEventListener('click', showResults);
+    document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
+    
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

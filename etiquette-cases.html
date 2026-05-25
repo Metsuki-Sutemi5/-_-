@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Этикет и неловкости в Китае — Секреты Поднебесной</title>
+    <link rel="stylesheet" href="style-etiquette-cases.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    /* Центрирование блоков с тестами */
+    .quiz-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .quiz-section .quiz-box {
+        max-width: 650px;
+        width: 100%;
+        margin: 0 auto 32px auto;
+        text-align: center;
+        background: #fff;
+        border-radius: 28px;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    .quiz-options {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-top: 20px;
+    }
+    .quiz-btn {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .quiz-feedback {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: 500;
+    }
+    /* Чтобы кнопки внутри не растягивались на всю ширину, но оставались центрированными */
+    .quiz-box .quiz-question {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#services">Главные разделы</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="tourism-cases.html">Кейсы туристам</a></li>
+            <li><a href="etiquette-cases.html" class="active">Этикет и неловкости</a></li>
+            <li><a href="students-cases.html">Кейсы студентам</a></li>
+            <li><a href="business-cases.html">Кейсы бизнесу</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="container breadcrumbs">
+        <a href="tourism-cases.html">← Назад к темам туристов</a> / <span>Этикет и неловкие ситуации</span>
+    </div>
+
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content animate-up">
+                <div class="hero-badge"><i class="fas fa-hand-peace"></i> Культура и традиции</div>
+                <h1>Этикет в Китае: <span class="hero-highlight">как не оскорбить и не ударить в грязь лицом</span></h1>
+                <p class="hero-desc">Палочки, подарки, жесты, цвета — разбираем правила, которые складывались тысячи лет. Истории, символы и реальные кейсы, чтобы вы чувствовали себя уверенно.</p>
+            </div>
+            <div class="hero-image animate-up delay-1">
+                <img src="./imgs/dragon.png" alt="Дракон">
+            </div>
+        </div>
+    </section>
+
+    <!-- Историческая справка и символы -->
+    <section class="history-symbols">
+        <div class="container">
+            <div class="history-block">
+                <h2><i class="fas fa-landmark"></i> Откуда взялись правила этикета?</h2>
+                <p>Китайский этикет уходит корнями в учение Конфуция (VI–V вв. до н.э.), который ввёл понятие «ли» (禮 / 礼) — ритуал, благопристойность. «Ли» регулировало всё: от приветствия до похорон. Со временем правила трансформировались, но основа осталась: <strong>уважение к старшим, сохранение «лица» и гармония</strong>. Даже сегодня нарушение этикета может быть воспринято как личное оскорбление.</p>
+                <p>Особое значение имеют <strong>символы и числа</strong>. Например, красный цвет — счастье и удача, белый — траур. А число 4 звучит как «смерть», поэтому его избегают. Знание этих деталей поможет вам не только избежать неловкости, но и произвести приятное впечатление.</p>
+            </div>
+
+            <div class="symbols-grid">
+                <div class="symbol-card">
+                    <div class="symbol-emoji">🐉</div>
+                    <h4>Дракон (龙)</h4>
+                    <p>Символ императора, могущества и удачи. Не тыкайте в него пальцем и не ставьте на пол.</p>
+                </div>
+                <div class="symbol-card">
+                    <div class="symbol-emoji">❤️</div>
+                    <h4>Красный цвет (红色)</h4>
+                    <p>Жизнь, счастье, праздник. Красные конверты (hongbao) — лучший подарок.</p>
+                </div>
+                <div class="symbol-card">
+                    <div class="symbol-emoji">🐟</div>
+                    <h4>Рыба (鱼)</h4>
+                    <p>Символ изобилия, потому что «рыба» созвучна с «избытком». На Новый год рыбу не доедают, оставляя на завтра.</p>
+                </div>
+                <div class="symbol-card">
+                    <div class="symbol-emoji">4️⃣</div>
+                    <h4>Число 4 (四)</h4>
+                    <p>Омоним слова «смерть». Не дарите 4 предмета и не ставьте 4 свечи.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Основные правила в виде карточек -->
+    <section class="rules-section">
+        <div class="container">
+            <h2 class="section-title">📜 Золотые правила этикета</h2>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Палочки</h3>
+                    <p>✖️ Не втыкайте вертикально в рис (напоминает благовония на похоронах). ✖️ Не используйте как указку. ✔️ Кладите на подставку или рядом с тарелкой.</p>
+                </div>
+                <div class="rule-card">
+                    <i class="fas fa-gift"></i>
+                    <h3>Подарки</h3>
+                    <p>✖️ Часы (送钟 — «провожать смерть»), зонты (伞 — «расставание»), белые цветы, острые предметы. ✔️ Чай, фрукты, красные конверты, качественный алкоголь.</p>
+                </div>
+                <div class="rule-card">
+                    <i class="fas fa-hand-peace"></i>
+                    <h3>Жесты</h3>
+                    <p>✖️ Указывать пальцем (особенно на человека). ✖️ Обнимать при встрече (кроме близких). ✔️ Лёгкий поклон или рукопожатие. ✔️ Принимать визитку двумя руками.</p>
+                </div>
+                <div class="rule-card">
+                    <i class="fas fa-theater-masks"></i>
+                    <h3>Лицо (面子)</h3>
+                    <p>Никогда не критикуйте публично. Не заставляйте человека «терять лицо» — это разрушает отношения. Лучше сказать «возможно, я неправ» вместо «вы ошибаетесь».</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Кейсы -->
+    <section class="cases-list">
+        <div class="container">
+            <h2 class="section-title">🎭 Реальные истории: как русские попадали в неловкие ситуации</h2>
+            <div class="case-card">
+                <div class="case-header">
+                    <span class="case-number">Кейс 1</span>
+                    <h3>«Подарил начальнику часы на юбилей»</h3>
+                </div>
+                <div class="case-content">
+                    <div class="case-bad">
+                        <i class="fas fa-times-circle"></i> <strong>Что случилось:</strong>
+                        <p>Русский предприниматель на годовщину сотрудничества подарил китайскому партнёру дорогие наручные часы. Лицо партнёра вытянулось, подарок приняли молча. Больше сделок не было.</p>
+                    </div>
+                    <div class="case-good">
+                        <i class="fas fa-check-circle"></i> <strong>Почему так вышло:</strong>
+                        <p>Часы (钟, zhōng) созвучны с «провожать в последний путь» (送终). Это намёк на смерть. В деловой среде такой подарок — оскорбление.</p>
+                        <ul><li><strong>Что дарить вместо часов:</strong> красные конверты, чай высшего сорта, китайский алкоголь (байцзю), парные предметы (но не 4).</li></ul>
+                    </div>
+                    <div class="case-phrases">
+                        <i class="fas fa-lightbulb"></i> <strong>Правильный подарок:</strong> «这是一个小礼物，希望你喜欢» — Zhè shì yī gè xiǎo lǐwù, xīwàng nǐ xǐhuān (Это маленький подарок, надеюсь, вам понравится).
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card">
+                <div class="case-header">
+                    <span class="case-number">Кейс 2</span>
+                    <h3>«Воткнул палочки в рис — испортил ужин»</h3>
+                </div>
+                <div class="case-content">
+                    <div class="case-bad">
+                        <i class="fas fa-times-circle"></i> <strong>Что случилось:</strong>
+                        <p>Турист в ресторане, чтобы отдохнуть, воткнул палочки вертикально в миску с рисом. Официантка побледнела и быстро убрала палочки. Соседние китайцы перешёптывались.</p>
+                    </div>
+                    <div class="case-good">
+                        <i class="fas fa-check-circle"></i> <strong>Почему:</strong>
+                        <p>Палочки, воткнутые вертикально в рис, имитируют курительные палочки (благовония) на поминальном алтаре. Это жест, связанный со смертью и похоронами.</p>
+                        <p><strong>Как правильно:</strong> Кладите палочки на специальную подставку (если есть) или рядом с тарелкой параллельно друг другу. Не скрещивайте.</p>
+                    </div>
+                    <div class="case-phrases">
+                        <i class="fas fa-language"></i> 请给我一个筷子架 — Qǐng gěi wǒ yī gè kuàizi jià (Дайте, пожалуйста, подставку для палочек).
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card">
+                <div class="case-header">
+                    <span class="case-number">Кейс 3</span>
+                    <h3>«Похлопал по плечу — потерял доверие»</h3>
+                </div>
+                <div class="case-content">
+                    <div class="case-bad">
+                        <i class="fas fa-times-circle"></i> <strong>Что произошло:</strong>
+                        <p>Русский турист, пытаясь выразить дружелюбие, несколько раз хлопнул по плечу китайского гида. Гид замкнулся и стал избегать контакта.</p>
+                    </div>
+                    <div class="case-good">
+                        <i class="fas fa-check-circle"></i> <strong>Объяснение:</strong>
+                        <p>В Китае личное пространство священно. Прикосновения к голове, плечам, спине незнакомцев (и даже знакомых) воспринимаются как фамильярность и неуважение. Допустимо только лёгкое рукопожатие или кивок.</p>
+                        <p><strong>Совет:</strong> Вместо похлопываний используйте лёгкий поклон или просто скажите «谢谢» (спасибо).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Таблица цветов и чисел (доп. блок) -->
+    <section class="color-number-table" style="background: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">🎨 Цвета и числа: что означают</h2>
+            <div class="table-wrapper">
+                <div class="table-row header">
+                    <div>Цвет / число</div>
+                    <div>Значение</div>
+                    <div>Когда использовать / избегать</div>
+                </div>
+                <div class="table-row"><div>❤️ Красный</div><div>Счастье, удача, жизнь</div><div>Свадьбы, Новый год, подарки</div></div>
+                <div class="table-row"><div>💛 Жёлтый (золотой)</div><div>Император, богатство</div><div>Деловые подарки, украшения</div></div>
+                <div class="table-row"><div>🤍 Белый</div><div>Траур, смерть</div><div>Не дарить, не носить на праздники</div></div>
+                <div class="table-row"><div>💚 Зелёный</div><div>Рост, гармония, но…</div><div>Зелёная шляпа — символ измены жены! Осторожно.</div></div>
+                <div class="table-row"><div>4 (四)</div><div>Смерть</div><div>Избегать в номерах, подарках (4 предмета)</div></div>
+                <div class="table-row"><div>8 (八)</div><div>Богатство, процветание</div><div>Желательное число (даже номер телефона)</div></div>
+                <div class="table-row"><div>6 (六)</div><div>Гладкий путь, удача</div><div>Хорошо для дат и сумм</div></div>
+            </div>
+            <p class="table-note"><i class="fas fa-info-circle"></i> В лифтах часто нет кнопки 4-го этажа — вместо неё 3A или 5. А номер 8 продаётся дороже.</p>
+        </div>
+    </section>
+
+    <!-- Мини-тест на этикет -->
+    <section class="quiz-section">
+        <div class="container">
+            <h2 class="section-title">📝 Проверьте себя: как бы вы поступили?</h2>
+            <div class="quiz-box" id="etiquetteQuiz">
+                <div class="quiz-question">Вам подарили визитку. Как правильно её принять?</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-correct="false">Взять одной левой рукой и сразу убрать в карман</button>
+                    <button class="quiz-btn" data-correct="true">Двумя руками, прочитать вслух имя, положить перед собой</button>
+                    <button class="quiz-btn" data-correct="false">Сломать пополам для удачи</button>
+                </div>
+                <div class="quiz-feedback" id="quizFeedback"></div>
+            </div>
+            <div class="quiz-box" style="margin-top: 32px;">
+                <div class="quiz-question">Что категорически нельзя дарить китайцам на свадьбу?</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-correct="true">Часы</button>
+                    <button class="quiz-btn" data-correct="false">Красный конверт с деньгами</button>
+                    <button class="quiz-btn" data-correct="false">Пару фужеров</button>
+                </div>
+                <div class="quiz-feedback" id="quizFeedback2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Дополнительная шпаргалка по фразам -->
+    <section class="cheatsheet">
+        <div class="container">
+            <h2 class="section-title">🗣️ Этикетные фразы на каждый день</h2>
+            <div class="phrase-grid-big">
+                <div class="phrase-card">
+                    <div class="zh">谢谢</div>
+                    <div class="pinyin">Xièxiè</div>
+                    <div class="ru">Спасибо (обязательно, даже за мелочь)</div>
+                </div>
+                <div class="phrase-card">
+                    <div class="zh">对不起</div>
+                    <div class="pinyin">Duìbuqǐ</div>
+                    <div class="ru">Извините (если задели или нарушили правило)</div>
+                </div>
+                <div class="phrase-card">
+                    <div class="zh">请慢用</div>
+                    <div class="pinyin">Qǐng màn yòng</div>
+                    <div class="ru">Приятного аппетита (говорит хозяин)</div>
+                </div>
+                <div class="phrase-card">
+                    <div class="zh">您先请</div>
+                    <div class="pinyin">Nín xiān qǐng</div>
+                    <div class="ru">Проходите первым (знак уважения)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">❓ Вопросы об этикете</h2>
+            <div class="faq-wrapper" style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Можно ли обниматься при встрече?<span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">С незнакомыми и коллегами — нет. Лёгкий поклон или рукопожатие достаточно. Объятия допустимы только с очень близкими друзьями, и то не всегда.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Что означает зелёная шляпа?<span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">«Носить зелёную шляпу» (戴绿帽子) — идиома, означающая, что жена изменила мужу. Никогда не дарите и не носите зелёные головные уборы в Китае.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Как правильно пить чай в гостях?<span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Когда вам наливают чай, можно постучать двумя пальцами по столу (знак благодарности). Не дуйте на чай, это некультурно. Не наливайте себе первым — сначала другим.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links"><a href="about.html">О проекте</a><a href="contacts.html">Контакты</a></div>
+        </div>
+        <div class="copyright">© 2025 Секреты Поднебесной</div>
+    </div>
+</footer>
+
+<script>
+    // Мобильное меню
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // FAQ аккордеон
+    function toggleFaq(element) {
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== element) item.classList.remove('active');
+        });
+        element.classList.toggle('active');
+    }
+
+    // ========== ИСПРАВЛЕННЫЙ ТЕСТ №1 (визитка) ==========
+    const quizContainer1 = document.getElementById('etiquetteQuiz');
+    if (quizContainer1) {
+        const btns1 = quizContainer1.querySelectorAll('.quiz-btn');
+        const feedback1 = document.getElementById('quizFeedback');
+        btns1.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isCorrect = btn.getAttribute('data-correct') === 'true';
+                feedback1.innerHTML = isCorrect 
+                    ? '✅ Отлично! Визитку принимают двумя руками, читают и кладут перед собой. Это знак уважения.' 
+                    : '❌ Нет. Визитку надо брать двумя руками, внимательно прочитать и не прятать сразу.';
+                feedback1.style.color = isCorrect ? '#2b7a3e' : '#C41E3A';
+            });
+        });
+    }
+
+    // ========== ИСПРАВЛЕННЫЙ ТЕСТ №2 (часы) ==========
+    const quizContainer2 = document.querySelector('.quiz-box:last-child'); // или можно добавить id, но оставим надёжный поиск
+    if (quizContainer2 && quizContainer2.id !== 'etiquetteQuiz') {
+        const btns2 = quizContainer2.querySelectorAll('.quiz-btn');
+        const feedback2 = document.getElementById('quizFeedback2');
+        btns2.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isCorrect = btn.getAttribute('data-correct') === 'true';
+                feedback2.innerHTML = isCorrect 
+                    ? '✅ Верно! Часы — символ похорон, их не дарят. Красный конверт и парные предметы – хорошо.' 
+                    : '❌ Ошибка. Часы дарить нельзя. А красный конверт — это классика.';
+                feedback2.style.color = isCorrect ? '#2b7a3e' : '#C41E3A';
+            });
+        });
+    }
+
+    // Плавные анимации
+    const animated = document.querySelectorAll('.history-block, .symbol-card, .rule-card, .case-card, .table-row, .phrase-card, .quiz-box');
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.style.opacity = '1';
+                e.target.style.transform = 'translateY(0)';
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    animated.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = '0.4s';
+        obs.observe(el);
+    });
+</script>

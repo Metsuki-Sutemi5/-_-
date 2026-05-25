@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Практика — пошаговые инструкции для жизни в Китае</title>
+    <link rel="stylesheet" href="style-practice.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Секреты Поднебесной <span>| 俄语人在中国</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="audience.html">Аудиториям</a></li>
+            <li><a href="practice.html" class="active">Практика</a></li>
+            <li><a href="interactive.html">Интерактив</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content animate-up">
+                <div class="hero-badge"><i class="fas fa-list-check"></i> Пошаговые алгоритмы</div>
+                <h1>Практика: <span class="hero-highlight">делайте всё правильно</span> с первого раза</h1>
+                <p class="hero-desc">Инструкции, которые спасут время, нервы и деньги. От покупки SIM-карты до регистрации в полиции — только то, что реально работает.</p>
+            </div>
+            <div class="hero-image animate-up delay-1">
+                <i class="fas fa-chalkboard-user" style="font-size: 8rem; color: var(--china-red); opacity: 0.7;"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="practice-grid">
+        <div class="container">
+            <h2 class="section-title">📖 Выберите инструкцию</h2>
+            <p class="section-subtitle">Для туристов, студентов и бизнесменов — всё, что нужно знать</p>
+            <div class="cards-grid">
+                <div class="practice-card hover-lift">
+                    <div class="card-icon"><i class="fas fa-sim-card"></i></div>
+                    <h3>Купить SIM-карту</h3>
+                    <p>Где купить, какой оператор, как пополнить и не переплатить. С фразами и скринами.</p>
+                    <a href="guide-simcard.html" class="btn-topic">Читать инструкцию →</a>
+                </div>
+                <div class="practice-card hover-lift">
+                    <div class="card-icon"><i class="fab fa-weixin"></i></div>
+                    <h3>Настроить WeChat Pay</h3>
+                    <p>Пошаговая настройка для иностранца. Привязка карты, верификация, оплата.</p>
+                    <a href="guide-wechatpay.htm" class="btn-topic">Читать инструкцию →</a>
+                </div>
+                <div class="practice-card hover-lift">
+                    <div class="card-icon"><i class="fas fa-car"></i></div>
+                    <h3>Вызвать такси (Didi)</h3>
+                    <p>Регистрация, адреса, оплата. Как не попасть в неловкую ситуацию.</p>
+                    <a href="guide-didi.html" class="btn-topic">Читать инструкцию →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">❓ Частые вопросы</h2>
+            <div class="faq-wrapper" style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Где найти актуальные цены на SIM-карты?<span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Цены меняются, но всегда можно посмотреть на сайтах операторов (China Mobile, Unicom, Telecom) или в обзорах на нашем сайте. Обычно туристический тариф стоит 50-100 юаней.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Как долго ждать регистрацию в полиции?<span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">В крупных городах процедура занимает 10-15 минут. Нужен паспорт, виза, договор аренды (или заполненный бланк от отеля).</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Что делать, если не приходит СМС для подтверждения в WeChat?<span class="faq-toggle-icon"></span></div>
+                    <div class="faq-answer">Попробуйте позже, перезагрузите телефон, проверьте, что номер введён с кодом страны (+7 для России). Если не помогает — используйте Alipay или наличные.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-logo">Секреты Поднебесной</div>
+            <div class="footer-links">
+                <a href="about.html">О проекте</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="privacy.html">Политика данных</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <i class="far fa-copyright"></i> 2025 «Секреты Поднебесной» — пошаговые инструкции.
+        </div>
+    </div>
+</footer>
+
+<script>
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    function toggleFaq(element) {
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== element) item.classList.remove('active');
+        });
+        element.classList.toggle('active');
+    }
+
+    const animated = document.querySelectorAll('.practice-card, .download-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    animated.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = '0.4s ease-out';
+        observer.observe(el);
+    });
+</script>
+</body>
+</html>
